@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies - Greenstone Insurance Portal</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .step { display: none; }
+        .step.active { display: block; }
+        .step-indicator { display: flex; gap: 10px; margin-bottom: 20px; }
+        .step-indicator span {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #ccc;
+            color: white;
+            font-weight: bold;
+        }
+        .step-indicator span.active { background: #2e7d32; }
+        .step-indicator span.done { background: #81c784; }
+        .form-group { margin: 15px 0; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .plan-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .plan-card h2 { color: #2e7d32; margin: 10px 0; }
+        .plan-card ul { text-align: left; margin: 10px 0; padding-left: 20px; }
+        .btn-outline {
+            border: 2px solid #2e7d32;
+            color: #2e7d32;
+            padding: 8px 20px;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn-outline:hover, .btn-outline.selected {
+            background: #2e7d32;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Greenstone Insurance Portal</div>
+        <nav><a href="/login.html" class="btn">Logout</a></nav>
+    </header>
+
+    <div class="dashboard">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <a href="/dashboard.html">Dashboard</a>
+            <a href="/claim.html">Submit Claim</a>
+            <a href="/payment.html">Payments</a>
+            <a href="/policy.html">Policies</a>
+            <a href="/profile.html">Profile</a>
+            <a href="/login.html" class="btn">Logout</a>
+        </div>
+
+        <div class="main-content">
+            <h1>Get a Car Insurance Quote</h1>
+
+            <!-- Indicador de etapas -->
+            <div class="step-indicator">
+                <span id="ind1" class="active">1. Car</span>
+                <span id="ind2">2. Driver</span>
+                <span id="ind3">3. Usage</span>
+                <span id="ind4">4. Plans</span>
+            </div>
+
+            <!-- Etapa 1: Dados do carro -->
+            <div class="step active" id="step1">
+                <h2>Car Details</h2>
+                <div class="form-group">
+                    <label>Car Model</label>
+                    <input type="text" id="carModel" placeholder="ex: Toyota Corolla">
+                </div>
+                <div class="form-group">
+                    <label>Car Year</label>
+                    <input type="number" id="carYear" placeholder="ex: 2020" min="1990" max="2026">
+                </div>
+                <div class="form-group">
+                    <label>Car Color</label>
+                    <input type="text" id="carColor" placeholder="ex: White">
+                </div>
+                <div class="form-group">
+                    <label>Car Plate</label>
+                    <input type="text" id="carPlate" placeholder="ex: ABC-1234">
+                </div>
+                <button class="btn" onclick="goToStep(2)">Next →</button>
+            </div>
+
+            <!-- Etapa 2: Dados do condutor -->
+            <div class="step" id="step2">
+                <h2>Driver Details</h2>
+                <div class="form-group">
+                    <label>Driver Age</label>
+                    <input type="number" id="driverAge" placeholder="ex: 30" min="18" max="99">
+                </div>
+                <div class="form-group">
+                    <label>Years of Driving Experience</label>
+                    <input type="number" id="drivingExperience" placeholder="ex: 5" min="0" max="80">
+                </div>
+                <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
+                <button class="btn" onclick="goToStep(3)" style="margin-left:10px;">Next →</button>
+            </div>
+
+            <!-- Etapa 3: Uso do carro -->
+            <div class="step" id="step3">
+                <h2>Car Usage</h2>
+                <div class="form-group">
+                    <label>Primary Use</label>
+                    <select id="carUsage">
+                        <option value="Personal">Personal</option>
+                        <option value="Commercial">Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Estimated KM per Year</label>
+                    <select id="kmPerYear">
+                        <option value="10000">Less than 10,000 km</option>
+                        <option value="20000">10,000 - 20,000 km</option>
+                        <option value="30000">More than 20,000 km</option>
+                    </select>
+                </div>
+                <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
+                <button class="btn" onclick="calculatePlans()" style="margin-left:10px;">Get Quote →</button>
+            </div>
+
+            <!-- Etapa 4: Planos -->
+            <div class="step" id="step4">
+                <h2>Choose Your Plan</h2>
+                <p id="quoteInfo" style="margin-bottom:20px; color:#555;"></p>
+                <div class="cards" id="plansContainer"></div>
+                <button class="btn-secondary" onclick="goToStep(3)" style="margin-top:20px;">← Back</button>
+            </div>
+
+            <!-- Apólices ativas -->
+            <h2 style="margin-top: 40px;">Your Active Policies</h2>
+            <div id="policiesList" class="cards"></div>
+        </div>
+    </div>
+
+    <script>
+        const userId = localStorage.getItem("userId");
+
+        function goToStep(step) {
+            // Validar campos antes de avançar
+            if (step === 2) {
+                if (!document.getElementById("carModel").value ||
+                    !document.getElementById("carYear").value ||
+                    !document.getElementById("carColor").value ||
+                    !document.getElementById("carPlate").value) {
+                    alert("Please fill in all car details.");
+                    return;
+                }
+            }
+            if (step === 3) {
+                if (!document.getElementById("driverAge").value ||
+                    !document.getElementById("drivingExperience").value) {
+                    alert("Please fill in all driver details.");
+                    return;
+                }
+            }
+
+            document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+            document.getElementById("step" + step).classList.add("active");
+
+            document.querySelectorAll(".step-indicator span").forEach((s, i) => {
+                s.classList.remove("active", "done");
+                if (i + 1 < step) s.classList.add("done");
+                if (i + 1 === step) s.classList.add("active");
+            });
+        }
+
+        function calculatePlans() {
+            if (!document.getElementById("carUsage").value) {
+                alert("Please fill in all usage details.");
+                return;
+            }
+
+            const carYear = parseInt(document.getElementById("carYear").value);
+            const driverAge = parseInt(document.getElementById("driverAge").value);
+            const drivingExperience = parseInt(document.getElementById("drivingExperience").value);
+            const carUsage = document.getElementById("carUsage").value;
+            const kmPerYear = parseInt(document.getElementById("kmPerYear").value);
+
+            // Calcular preço base
+            let basePrice = 300;
+
+            // Carro mais velho = mais barato
+            const carAge = 2026 - carYear;
+            if (carAge <= 3) basePrice += 100;
+            else if (carAge <= 7) basePrice += 50;
+
+            // Condutor jovem = mais caro
+            if (driverAge < 25) basePrice += 150;
+            else if (driverAge < 30) basePrice += 80;
+
+            // Pouca experiência = mais caro
+            if (drivingExperience < 2) basePrice += 120;
+            else if (drivingExperience < 5) basePrice += 60;
+
+            // Uso comercial = mais caro
+            if (carUsage === "Commercial") basePrice += 100;
+
+            // Mais km = mais caro
+            if (kmPerYear >= 30000) basePrice += 80;
+            else if (kmPerYear >= 20000) basePrice += 40;
+
+            const plans = [
+                {
+                    name: "Basic",
+                    price: basePrice,
+                    features: ["Third party coverage", "Roadside assistance", "24/7 support"]
+                },
+                {
+                    name: "Standard",
+                    price: Math.round(basePrice * 1.5),
+                    features: ["Third party + fire & theft", "Roadside assistance", "Windscreen cover", "24/7 support"]
+                },
+                {
+                    name: "Premium",
+                    price: Math.round(basePrice * 2.2),
+                    features: ["Full comprehensive cover", "Hire car after accident", "No excess on claims", "24/7 priority support"]
+                }
+            ];
+
+            const container = document.getElementById("plansContainer");
+            container.innerHTML = "";
+
+            plans.forEach(plan => {
+                container.innerHTML += `
+                    <div class="plan-card">
+                        <h3>${plan.name}</h3>
+                        <ul>${plan.features.map(f => `<li>${f}</li>`).join("")}</ul>
+                        <h2>$${plan.price}/year</h2>
+                        <button class="btn" onclick="buyPolicy('${plan.name}', ${plan.price})">Select ${plan.name}</button>
+                    </div>`;
+            });
+
+            document.getElementById("quoteInfo").textContent =
+                `Quote based on: ${document.getElementById("carModel").value}, ${carYear} — Driver age: ${driverAge}`;
+
+            goToStep(4);
+        }
+
+        async function buyPolicy(planName, price) {
+            const policy = {
+                userId: parseInt(userId),
+                carModel: document.getElementById("carModel").value,
+                carYear: parseInt(document.getElementById("carYear").value),
+                carColor: document.getElementById("carColor").value,
+                carPlate: document.getElementById("carPlate").value,
+                driverAge: parseInt(document.getElementById("driverAge").value),
+                drivingExperience: parseInt(document.getElementById("drivingExperience").value),
+                carUsage: document.getElementById("carUsage").value,
+                kmPerYear: parseInt(document.getElementById("kmPerYear").value),
+                planType: planName,
+                price: price
+            };
+
+            const response = await fetch("http://localhost:5077/api/policy/buy", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(policy)
+            });
+
+            if (response.ok) {
+                alert(`${planName} plan purchased successfully!`);
+                goToStep(1);
+                loadPolicies();
+            } else {
+                alert("Error purchasing policy.");
+            }
+        }
+
+        async function loadPolicies() {
+            const response = await fetch(`http://localhost:5077/api/policy/${userId}`);
+            const policies = await response.json();
+            const list = document.getElementById("policiesList");
+            list.innerHTML = "";
+
+            if (policies.length === 0) {
+                list.innerHTML = "<p>No active policies.</p>";
+                return;
+            }
+
+            policies.forEach(p => {
+                list.innerHTML += `
+                    <div class="card">
+                        <h3>${p.planType} Plan</h3>
+                        <p>${p.carModel} (${p.carYear})</p>
+                        <p>Plate: ${p.carPlate}</p>
+                        <p>Policy #: ${p.policyNumber}</p>
+                        <p>Price: $${p.price}/year</p>
+                        <p>Status: ${p.status}</p>
+                        <p>Expires: ${new Date(p.endDate).toLocaleDateString()}</p>
+                    </div>`;
+            });
+        }
+
+        loadPolicies();
+    </script>
+
+</body>
+</html>

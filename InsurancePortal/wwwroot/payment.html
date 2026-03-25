@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments - Greenstone Insurance</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .form-group { margin: 15px 0; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .card-preview {
+            background: linear-gradient(135deg, #2e7d32, #81c784);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 380px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .card-preview .card-number { font-size: 22px; letter-spacing: 4px; margin: 15px 0; }
+        .card-preview .card-info { display: flex; justify-content: space-between; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Greenstone Insurance Portal</div>
+    <nav>
+        <a href="/login.html" class="btn">Logout</a>
+    </nav>
+</header>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/claim.html">Submit Claim</a>
+        <a href="/payment.html">Payments</a>
+        <a href="/policy.html">Policies</a>
+        <a href="/profile.html">Profile</a>
+        <a href="/login.html" class="btn">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Make a Payment</h1>
+
+        <!-- Selecionar apólice -->
+        <div class="form-group">
+            <label>Select Policy</label>
+            <select id="policyId" onchange="loadPolicyPrice()">
+                <option value="">-- Select a policy --</option>
+            </select>
+        </div>
+
+        <div id="policyInfo" style="display:none; margin-bottom:20px;">
+            <p>Plan: <strong id="planName"></strong></p>
+            <p>Amount due: <strong id="amountDue" style="color:#2e7d32; font-size:20px;"></strong></p>
+        </div>
+
+        <!-- Cartão fake -->
+        <div id="paymentSection" style="display:none;">
+            <h2>Card Details</h2>
+
+            <!-- Preview do cartão -->
+            <div class="card-preview">
+                <div style="font-size:12px; opacity:0.8;">GREENSTONE INSURANCE</div>
+                <div class="card-number" id="previewNumber">**** **** **** ****</div>
+                <div class="card-info">
+                    <div>
+                        <div style="font-size:11px; opacity:0.8;">CARD HOLDER</div>
+                        <div id="previewName">YOUR NAME</div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px; opacity:0.8;">EXPIRES</div>
+                        <div id="previewExpiry">MM/YY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário do cartão -->
+            <div class="form-group">
+                <label>Card Holder Name</label>
+                <input type="text" id="cardName" placeholder="ex: John Smith" oninput="previewCard()">
+            </div>
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber()">
+            </div>
+            <div style="display:flex; gap:20px; max-width:400px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Expiry Date</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" oninput="previewCard()">
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>CVV</label>
+                    <input type="text" id="cardCvv" placeholder="123" maxlength="3">
+                </div>
+            </div>
+
+            <button class="btn" onclick="makePayment()">Pay Now</button>
+        </div>
+
+        <!-- Histórico de pagamentos -->
+        <h2 style="margin-top:40px;">Payment History</h2>
+        <div id="paymentsList" class="cards"></div>
+    </div>
+</div>
+
+<script>
+const userId = localStorage.getItem("userId");
+let selectedPrice = 0;
+
+// Carregar apólices
+async function loadPolicies() {
+    const response = await fetch(`http://localhost:5077/api/policy/${userId}`);
+    const policies = await response.json();
+    const select = document.getElementById("policyId");
+
+    if (policies.length === 0) {
+        select.innerHTML = "<option value=''>No active policies found</option>";
+        return;
+    }
+
+    policies.forEach(p => {
+        select.innerHTML += `<option value="${p.id}" data-price="${p.price}" data-plan="${p.planType}">${p.planType} - ${p.carModel} (${p.carPlate})</option>`;
+    });
+}
+
+// Mostrar preço da apólice selecionada
+function loadPolicyPrice() {
+    const select = document.getElementById("policyId");
+    const selected = select.options[select.selectedIndex];
+
+    if (!selected.value) {
+        document.getElementById("policyInfo").style.display = "none";
+        document.getElementById("paymentSection").style.display = "none";
+        return;
+    }
+
+    selectedPrice = parseFloat(selected.getAttribute("data-price"));
+    document.getElementById("planName").textContent = selected.getAttribute("data-plan");
+    document.getElementById("amountDue").textContent = `$${selectedPrice}`;
+    document.getElementById("policyInfo").style.display = "block";
+    document.getElementById("paymentSection").style.display = "block";
+}
+
+// Formatar número do cartão
+function formatCardNumber() {
+    let value = document.getElementById("cardNumber").value.replace(/\D/g, "");
+    value = value.replace(/(.{4})/g, "$1 ").trim();
+    document.getElementById("cardNumber").value = value;
+    previewCard();
+}
+
+// Atualizar preview do cartão
+function previewCard() {
+    const number = document.getElementById("cardNumber").value || "**** **** **** ****";
+    const name = document.getElementById("cardName").value || "YOUR NAME";
+    const expiry = document.getElementById("cardExpiry").value || "MM/YY";
+
+    document.getElementById("previewNumber").textContent = number.length > 0 ? number : "**** **** **** ****";
+    document.getElementById("previewName").textContent = name.toUpperCase();
+    document.getElementById("previewExpiry").textContent = expiry;
+}
+
+// Fazer pagamento
+async function makePayment() {
+    const policyId = document.getElementById("policyId").value;
+    const cardName = document.getElementById("cardName").value;
+    const cardNumber = document.getElementById("cardNumber").value;
+    const cardExpiry = document.getElementById("cardExpiry").value;
+    const cardCvv = document.getElementById("cardCvv").value;
+
+    if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+        alert("Please fill in all card details.");
+        return;
+    }
+
+    const payment = {
+        userId: parseInt(userId),
+        policyId: parseInt(policyId),
+        amount: selectedPrice
+    };
+
+    const response = await fetch("http://localhost:5077/api/payment/pay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payment)
+    });
+
+    if (response.ok) {
+        alert("Payment successful! 🎉");
+        document.getElementById("policyId").value = "";
+        document.getElementById("policyInfo").style.display = "none";
+        document.getElementById("paymentSection").style.display = "none";
+        document.getElementById("cardName").value = "";
+        document.getElementById("cardNumber").value = "";
+        document.getElementById("cardExpiry").value = "";
+        document.getElementById("cardCvv").value = "";
+        previewCard();
+        loadPayments();
+    } else {
+        alert("Payment failed. Please try again.");
+    }
+}
+
+// Carregar histórico de pagamentos
+async function loadPayments() {
+    const response = await fetch(`http://localhost:5077/api/payment/${userId}`);
+    const payments = await response.json();
+    const list = document.getElementById("paymentsList");
+    list.innerHTML = "";
+
+    if (payments.length === 0) {
+        list.innerHTML = "<p>No payments made yet.</p>";
+        return;
+    }
+
+    payments.forEach(p => {
+        list.innerHTML += `
+            <div class="card">
+                <h3>$${p.amount}</h3>
+                <p>Date: ${new Date(p.date).toLocaleDateString()}</p>
+                <p>Status: <strong style="color:green">${p.status}</strong></p>
+            </div>`;
+    });
+}
+
+loadPolicies();
+loadPayments();
+</script>
+
+</body>
+</html>

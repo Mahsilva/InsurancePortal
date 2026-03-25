@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Greenstone  Insurance Portal</div>
+    <nav>
+       
+        <a href="index.html" class="btn">Logout</a>
+    </nav>
+</header>
+
+<div class="main-content">
+    <h1>Your Profile</h1>
+
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+
+    <button onclick="logout()" class="btn-secondary">Logout</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const name = localStorage.getItem("userFullName");
+    const email = localStorage.getItem("userEmail");
+
+    document.getElementById("name").textContent = name || "Not available";
+    document.getElementById("email").textContent = email || "Not available";
+});
+
+function logout() {
+    localStorage.removeItem("userFullName");
+    localStorage.removeItem("userEmail");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

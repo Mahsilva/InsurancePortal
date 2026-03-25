@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Insurance Portal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Greenstone  Insurance Portal</div>
+        
+    </header>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <form onsubmit="return loginUser()">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <!-- Botão Create Account -->
+        <a href="register.html" class="btn-secondary">Create Account</a>
+
+        <p><a href="index.html" class="btn-secondary">Back to Home</a></p>
+    </div>
+
+    <script>
+    async function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("http://localhost:5077/api/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    if (response.ok) {
+        const user = await response.json();
+
+        // salvar usuário logado
+        localStorage.setItem("userFullName", user.fullName);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userId", user.id);
+
+        window.location.href = "/dashboard.html";
+    } else {
+        alert("Invalid login");
+    }
+
+    return false;
+}
+</script>
+
+</body>
+</html>

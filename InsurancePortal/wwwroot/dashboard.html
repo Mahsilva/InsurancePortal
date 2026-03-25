@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Greenstone Insurance</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .welcome-banner {
+            background: linear-gradient(135deg, #2e7d32, #81c784);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .welcome-banner h1 { margin-bottom: 5px; }
+        .welcome-banner p { opacity: 0.9; }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-left: 5px solid #2e7d32;
+        }
+        .stat-card h2 {
+            font-size: 36px;
+            color: #2e7d32;
+            margin: 10px 0 5px;
+        }
+        .stat-card p { color: #666; font-size: 14px; }
+
+        .quick-actions {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .quick-actions h2 { margin-bottom: 15px; color: #333; }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px 25px;
+            text-decoration: none;
+            color: #333;
+            width: 140px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+            color: #2e7d32;
+            transform: translateY(-3px);
+        }
+        .action-btn .icon { font-size: 30px; margin-bottom: 8px; }
+        .action-btn span { font-size: 13px; font-weight: bold; text-align: center; }
+
+        .recent-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .recent-section h2 { margin-bottom: 15px; color: #333; }
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .recent-item:last-child { border-bottom: none; }
+        .recent-item .info { font-size: 14px; color: #555; }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-active { background: #e8f5e9; color: #2e7d32; }
+        .badge-pending { background: #fff3e0; color: #e65100; }
+        .badge-paid { background: #e3f2fd; color: #1565c0; }
+        .empty-msg { color: #999; font-size: 14px; text-align: center; padding: 20px 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Greenstone Insurance Portal</div>
+    <nav>
+        <span id="headerName" style="color:#2e7d32; font-weight:bold; margin-right:15px;"></span>
+        <a href="/login.html" class="btn" onclick="logout()">Logout</a>
+    </nav>
+</header>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <a href="/dashboard.html">🏠 Dashboard</a>
+        <a href="/policy.html">📋 My Policies</a>
+        <a href="/claim.html">🔧 Submit Claim</a>
+        <a href="/payment.html">💳 Payments</a>
+        <a href="/profile.html">👤 Profile</a>
+        <a href="/login.html" class="btn" onclick="logout()" style="margin-top:20px;">Logout</a>
+    </div>
+
+    <div class="main-content">
+
+        <div class="welcome-banner">
+            <h1>Welcome back, <span id="userName">Customer</span>! 👋</h1>
+            <p>Here's a summary of your insurance activities.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <p>Active Policies</p>
+                <h2 id="totalPolicies">-</h2>
+                <p>car insurance plans</p>
+            </div>
+            <div class="stat-card">
+                <p>Pending Claims</p>
+                <h2 id="totalClaims">-</h2>
+                <p>awaiting review</p>
+            </div>
+            <div class="stat-card">
+                <p>Total Payments</p>
+                <h2 id="totalPayments">-</h2>
+                <p>transactions made</p>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <a href="/policy.html" class="action-btn">
+                    <span class="icon">📋</span>
+                    <span>Buy Policy</span>
+                </a>
+                <a href="/claim.html" class="action-btn">
+                    <span class="icon">🔧</span>
+                    <span>Submit Claim</span>
+                </a>
+                <a href="/payment.html" class="action-btn">
+                    <span class="icon">💳</span>
+                    <span>Make Payment</span>
+                </a>
+                <a href="/profile.html" class="action-btn">
+                    <span class="icon">👤</span>
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="recent-section">
+            <h2>Recent Policies</h2>
+            <div id="recentPolicies"><p class="empty-msg">Loading...</p></div>
+        </div>
+
+        <div class="recent-section">
+            <h2>Recent Claims</h2>
+            <div id="recentClaims"><p class="empty-msg">Loading...</p></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("userFullName");
+
+    if (!userId) {
+        window.location.href = "/login.html";
+    }
+
+    document.getElementById("userName").textContent = userName || "Customer";
+    document.getElementById("headerName").textContent = userName || "";
+
+    async function loadDashboard() {
+        try {
+            const polRes = await fetch(`http://localhost:5077/api/policy/${userId}`);
+            const policies = await polRes.json();
+            document.getElementById("totalPolicies").textContent = policies.length;
+
+            const recentPolicies = document.getElementById("recentPolicies");
+            if (policies.length === 0) {
+                recentPolicies.innerHTML = `<p class="empty-msg">No policies yet. <a href="/policy.html" style="color:#2e7d32;">Buy your first policy!</a></p>`;
+            } else {
+                recentPolicies.innerHTML = policies.slice(0, 3).map(p => `
+                    <div class="recent-item">
+                        <div>
+                            <strong>${p.planType} Plan</strong>
+                            <div class="info">${p.carModel} • Plate: ${p.carPlate} • #${p.policyNumber}</div>
+                        </div>
+                        <span class="badge badge-active">${p.status}</span>
+                    </div>`).join("");
+            }
+
+            const claimRes = await fetch(`http://localhost:5077/api/claim/${userId}`);
+            const claims = await claimRes.json();
+            const pending = claims.filter(c => c.status === "Pending").length;
+            document.getElementById("totalClaims").textContent = pending;
+
+            const recentClaims = document.getElementById("recentClaims");
+            if (claims.length === 0) {
+                recentClaims.innerHTML = `<p class="empty-msg">No claims submitted yet.</p>`;
+            } else {
+                recentClaims.innerHTML = claims.slice(0, 3).map(c => `
+                    <div class="recent-item">
+                        <div>
+                            <strong>Claim #${c.id}</strong>
+                            <div class="info">${c.description} • ${new Date(c.date).toLocaleDateString()}</div>
+                        </div>
+                        <span class="badge badge-pending">${c.status}</span>
+                    </div>`).join("");
+            }
+
+            const payRes = await fetch(`http://localhost:5077/api/payment/${userId}`);
+            const payments = await payRes.json();
+            document.getElementById("totalPayments").textContent = payments.length;
+
+        } catch (error) {
+            console.error("Error loading dashboard:", error);
+        }
+    }
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/login.html";
+    }
+
+    loadDashboard();
+</script>
+
+</body>
+</html>

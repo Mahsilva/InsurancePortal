@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Claims - Greenstone Insurance</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Greenstone Insurance Portal</div>
+    <nav>
+        <a href="/login.html" class="btn">Logout</a>
+    </nav>
+</header>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/claim.html">Submit Claim</a>
+        <a href="/payment.html">Payments</a>
+        <a href="/policy.html">Policies</a>
+        <a href="/profile.html">Profile</a>
+        <a href="/login.html" class="btn">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Submit a Claim</h1>
+
+        <form id="claimForm">
+            <div style="margin: 15px 0;">
+                <label><strong>Select Policy</strong></label>
+                <select id="policyId" style="width:100%; max-width:400px; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px;">
+                    <option value="">-- Select a policy --</option>
+                </select>
+            </div>
+            <div style="margin: 15px 0;">
+                <label><strong>Claim Description</strong></label>
+                <textarea id="description" placeholder="Describe what happened..." required
+                    style="width:100%; max-width:400px; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px; height:100px;"></textarea>
+            </div>
+            <button type="submit" class="btn">Submit Claim</button>
+        </form>
+
+        <h2 style="margin-top:30px;">Your Claims</h2>
+        <div id="claimsList" class="cards"></div>
+    </div>
+</div>
+
+<script>
+const userId = localStorage.getItem("userId");
+
+// Carregar apólices do usuário no select
+async function loadPolicies() {
+    const response = await fetch(`http://localhost:5077/api/policy/${userId}`);
+    const policies = await response.json();
+    const select = document.getElementById("policyId");
+
+    if (policies.length === 0) {
+        select.innerHTML = "<option value=''>No active policies found</option>";
+        return;
+    }
+
+    policies.forEach(p => {
+        select.innerHTML += `<option value="${p.id}">${p.planType} - ${p.carModel} (${p.carPlate})</option>`;
+    });
+}
+
+// Carregar claims do usuário
+async function loadClaims() {
+    const response = await fetch(`http://localhost:5077/api/claim/${userId}`);
+    const claims = await response.json();
+    const list = document.getElementById("claimsList");
+    list.innerHTML = "";
+
+    if (claims.length === 0) {
+        list.innerHTML = "<p>No claims submitted yet.</p>";
+        return;
+    }
+
+    claims.forEach(c => {
+        const statusColor = c.status === "Pending" ? "orange" : c.status === "Approved" ? "green" : "red";
+        list.innerHTML += `
+            <div class="card">
+                <h3>Claim #${c.id}</h3>
+                <p>${c.description}</p>
+                <p>Date: ${new Date(c.date).toLocaleDateString()}</p>
+                <p>Status: <strong style="color:${statusColor}">${c.status}</strong></p>
+            </div>`;
+    });
+}
+
+// Submeter claim
+document.getElementById("claimForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const policyId = document.getElementById("policyId").value;
+    const description = document.getElementById("description").value;
+
+    if (!policyId) {
+        alert("Please select a policy.");
+        return;
+    }
+
+    const claim = {
+        userId: parseInt(userId),
+        policyId: parseInt(policyId),
+        description: description
+    };
+
+    const response = await fetch("http://localhost:5077/api/claim/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(claim)
+    });
+
+    if (response.ok) {
+        alert("Claim submitted successfully!");
+        document.getElementById("claimForm").reset();
+        loadClaims();
+    } else {
+        alert("Error submitting claim.");
+    }
+});
+
+loadPolicies();
+loadClaims();
+</script>
+
+</body>
+</html>

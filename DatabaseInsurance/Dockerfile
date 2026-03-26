@@ -4,10 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["DatabaseInsurance.csproj", "."]
-RUN dotnet restore
 COPY . .
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet restore "DatabaseInsurance.csproj"
+RUN dotnet publish "DatabaseInsurance.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

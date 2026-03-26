@@ -159,3 +159,6 @@ C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\obj\Debug\net10.0\ref
 C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\bin\Debug\net10.0\Npgsql.dll
+C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Marcelo\Desktop\InsurancePortal\DatabaseInsurance\obj\Debug\net10.0\DatabaseInsurance.sourcelink.json

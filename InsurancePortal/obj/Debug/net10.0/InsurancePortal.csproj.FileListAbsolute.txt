@@ -84,11 +84,14 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Swash
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\8sehov4vdo-{0}-u9w9vtjgip-u9w9vtjgip.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-986oyvi0e9-986oyvi0e9.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-x21llyicjc-x21llyicjc.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\ziteg2w5nn-{0}-klk4czrmdg-klk4czrmdg.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\8f5mc97hay-{0}-dvsupycbqc-dvsupycbqc.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\3gh8f7fguq-{0}-fwnvvjvax9-fwnvvjvax9.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\q6to0i03vv-{0}-ywamv6arzj-ywamv6arzj.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\tjuu3qh89n-{0}-a2wsusmswz-a2wsusmswz.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\xy7gv6rm94-{0}-f9j9vxry1t-f9j9vxry1t.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Npgsql.dll
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\InsurancePortal.sourcelink.json
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-3hq8dfafa7-3hq8dfafa7.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-i8v9rf9gxn-i8v9rf9gxn.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\8f5mc97hay-{0}-8tjcb0fwqq-8tjcb0fwqq.gz

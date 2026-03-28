@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseInsurance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260325072416_InitialCreate")]
+    [Migration("20260328032408_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -100,6 +100,10 @@ namespace DatabaseInsurance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CarColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CarModel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -108,8 +112,28 @@ namespace DatabaseInsurance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CarUsage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CarYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DriverAge")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DrivingExperience")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("KmPerYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlanType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PolicyNumber")
                         .IsRequired()

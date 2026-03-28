@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseInsurance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260328040006_FixPendingChanges")]
-    partial class FixPendingChanges
+    [Migration("20260328040416_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

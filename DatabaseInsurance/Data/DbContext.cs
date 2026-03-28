@@ -4,6 +4,13 @@ using DatabaseInsurance.Models;
 namespace DatabaseInsurance.Data
 {
     public class AppDbContext : DbContext
+
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    optionsBuilder.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+}
+
+
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

@@ -34,7 +34,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const password = document.getElementById("password").value;
 
     try {
-        const response = await fetch("http://localhost:5077/api/auth/register", {
+        const response = await fetch("https://insuranceportal-production-b15d.up.railway.app/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -59,3 +59,4 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
 </body>
 </html>
+

@@ -118,7 +118,7 @@ let selectedPrice = 0;
 
 // Carregar apólices
 async function loadPolicies() {
-    const response = await fetch(`http://localhost:5077/api/policy/${userId}`);
+    const response = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/policy/${userId}`);
     const policies = await response.json();
     const select = document.getElementById("policyId");
 
@@ -188,7 +188,7 @@ async function makePayment() {
         amount: selectedPrice
     };
 
-    const response = await fetch("http://localhost:5077/api/payment/pay", {
+    const response = await fetch("https://insuranceportal-production-b15d.up.railway.app/api/payment/pay", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payment)
@@ -212,7 +212,7 @@ async function makePayment() {
 
 // Carregar histórico de pagamentos
 async function loadPayments() {
-    const response = await fetch(`http://localhost:5077/api/payment/${userId}`);
+    const response = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/payment/${userId}`);
     const payments = await response.json();
     const list = document.getElementById("paymentsList");
     list.innerHTML = "";
@@ -238,3 +238,4 @@ loadPayments();
 
 </body>
 </html>
+

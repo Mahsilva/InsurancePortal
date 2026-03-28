@@ -197,7 +197,7 @@
 
     async function loadDashboard() {
         try {
-            const polRes = await fetch(`http://localhost:5077/api/policy/${userId}`);
+            const polRes = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/policy/${userId}`);
             const policies = await polRes.json();
             document.getElementById("totalPolicies").textContent = policies.length;
 
@@ -215,7 +215,7 @@
                     </div>`).join("");
             }
 
-            const claimRes = await fetch(`http://localhost:5077/api/claim/${userId}`);
+            const claimRes = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/claim/${userId}`);
             const claims = await claimRes.json();
             const pending = claims.filter(c => c.status === "Pending").length;
             document.getElementById("totalClaims").textContent = pending;
@@ -234,7 +234,7 @@
                     </div>`).join("");
             }
 
-            const payRes = await fetch(`http://localhost:5077/api/payment/${userId}`);
+            const payRes = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/payment/${userId}`);
             const payments = await payRes.json();
             document.getElementById("totalPayments").textContent = payments.length;
 
@@ -253,3 +253,4 @@
 
 </body>
 </html>
+

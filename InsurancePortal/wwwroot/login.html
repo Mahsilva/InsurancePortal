@@ -16,7 +16,7 @@
     <div class="login-container">
         <h2>Login</h2>
 
-        <form onsubmit="return loginUser()">
+        <form id="loginForm">
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
 
@@ -30,33 +30,34 @@
     </div>
 
     <script>
-    async function loginUser() {
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const response = await fetch("https://insuranceportal-production-b15d.up.railway.app/api/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-    });
+    try {
+        const response = await fetch("https://insuranceportal-production-b15d.up.railway.app/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-    if (response.ok) {
-        const user = await response.json();
-
-        // salvar usuário logado
-        localStorage.setItem("userFullName", user.fullName);
-        localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userId", user.id);
-
-        window.location.href = "/dashboard.html";
-    } else {
-        alert("Invalid login");
+        if (response.ok) {
+            const user = await response.json();
+            localStorage.setItem("userFullName", user.fullName);
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userId", user.id);
+            window.location.href = "/dashboard.html";
+        } else {
+            alert("Invalid login. Please check your email and password.");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Error connecting to server.");
     }
+});
 
-    return false;
-}
 </script>
 
 </body>

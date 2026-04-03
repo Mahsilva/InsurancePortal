@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using DatabaseInsurance.Models;
 
 namespace DatabaseInsurance.Data
 {
     public class AppDbContext : DbContext
-
-    
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -13,6 +12,11 @@ namespace DatabaseInsurance.Data
         public DbSet<Policy> Policies { get; set; }
         public DbSet<Claim> Claims { get; set; }
         public DbSet<Payment> Payments { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

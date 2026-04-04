@@ -188,6 +188,26 @@ footer {
     transition: all 0.3s ease; /* animação suave */
 }
 
+/* ADMIN BUTTON */
+.btn-admin {
+    background-color: #1a237e !important;
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+    background-color: #0d1757 !important;
+    transform: scale(1.05);
+    cursor: pointer;
+    color: white !important;
+}
+
+
 .btn-secondary {
     color: blue;
 
@@ -206,3 +226,10 @@ footer {
     transform: scale(1.05); /* aumenta levemente */
     cursor: pointer;
 }
+
+.btn-admin:hover {
+    background-color: #0d1757 !important;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+

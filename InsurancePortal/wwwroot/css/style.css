@@ -206,9 +206,3 @@ footer {
     transform: scale(1.05); /* aumenta levemente */
     cursor: pointer;
 }
-
-.btn-admin, .btn-admin:hover {
-    background-color: #0d1757 !important;
-    transform: scale(1.05);
-    cursor: pointer;
-}

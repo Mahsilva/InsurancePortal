@@ -188,11 +188,6 @@ footer {
     transition: all 0.3s ease; /* animação suave */
 }
 
-.btn-admin {
-    background-color: #1a237e;
-    transition: all 0.3s ease;
-}
-
 .btn-secondary {
     color: blue;
 
@@ -212,7 +207,7 @@ footer {
     cursor: pointer;
 }
 
-.btn-admin:hover {
+.btn-admin, .btn-admin:hover {
     background-color: #0d1757 !important;
     transform: scale(1.05);
     cursor: pointer;

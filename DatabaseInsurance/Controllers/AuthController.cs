@@ -35,13 +35,18 @@ namespace DatabaseInsurance.Controllers
         [HttpPost("login")]
         public IActionResult Login(User login)
         {
-            var user = _context.Users
-                .FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+    var user = _context.Users
+        .FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
 
-            if (user == null)
-                return Unauthorized("Invalid credentials");
+    if (user == null)
+        return Unauthorized("Invalid credentials");
 
-            return Ok(user);
-        }
+    return Ok(new {
+        user.Id,
+        user.FullName,
+        user.Email,
+        user.IsAdmin
+    });
+}
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DatabaseInsurance")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55847a97b2b797ff66ddfe527c84ac9bbfdd1873")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2740a96cfcec7ee3f005eeb43e9db7c7d8df40fc")]
 [assembly: System.Reflection.AssemblyProductAttribute("DatabaseInsurance")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DatabaseInsurance")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

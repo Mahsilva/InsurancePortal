@@ -108,15 +108,35 @@ namespace DatabaseInsurance.Controllers
 
         // Criar admin
         [HttpPost("create")]
-        public IActionResult CreateAdmin(User user)
-        {
-            var exists = _context.Users.FirstOrDefault(u => u.Email == user.Email);
-            if (exists != null) return BadRequest("Email already exists");
+public IActionResult CreateAdmin([FromBody] CreateAdminRequest request)
+{
+    // Senha mestre para criar admins
+    if (request.MasterPassword != "masteradmin")
+        return Unauthorized("Invalid master password");
 
-            user.IsAdmin = true;
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return Ok(user);
-        }
+    var exists = _context.Users.FirstOrDefault(u => u.Email == request.Email);
+    if (exists != null) return BadRequest("Email already exists");
+
+    var user = new User
+    {
+        FullName = request.FullName,
+        Email = request.Email,
+        Password = request.Password,
+        IsAdmin = true
+    };
+
+    _context.Users.Add(user);
+    _context.SaveChanges();
+    return Ok(user);
+}
+
+public class CreateAdminRequest
+{
+    public required string FullName { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
+    public required string MasterPassword { get; set; }
+}
+
     }
 }

@@ -4,55 +4,695 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greenstone Insurance Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --green-dark: #1a3a2a;
+            --green-mid: #2e7d32;
+            --green-light: #4caf50;
+            --green-pale: #e8f5e9;
+            --gold: #c9a84c;
+            --gold-light: #f0d080;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-900: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--gray-900);
+            background: var(--white);
+            overflow-x: hidden;
+             padding-top: 0;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--green-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .header-logo span {
+            color: var(--gold);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-customer {
+            padding: 10px 24px;
+            background: var(--green-mid);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-customer:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-admin-nav {
+            padding: 10px 24px;
+            background: var(--green-dark);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-admin-nav:hover {
+            background: #0d1f16;
+            transform: translateY(-1px);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--green-dark) 0%, #2d5a3d 50%, #1a4a2e 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 60px 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(76,175,80,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.3);
+            color: var(--gold-light);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge::before {
+            content: '●';
+            color: var(--gold);
+            font-size: 8px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 5vw, 72px);
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            padding: 16px 36px;
+            background: var(--gold);
+            color: var(--green-dark);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+        }
+
+        .btn-hero-secondary {
+            padding: 16px 36px;
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .hero-stats {
+            position: absolute;
+            right: 60px;
+            bottom: 80px;
+            display: flex;
+            gap: 40px;
+            z-index: 2;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold-light);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-divider {
+            width: 1px;
+            background: rgba(255,255,255,0.15);
+            align-self: stretch;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 100px 60px;
+            background: var(--white);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--green-pale);
+            color: var(--green-mid);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .features-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            color: var(--green-dark);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .features-subtitle {
+            font-size: 16px;
+            color: var(--gray-600);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 36px 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green-mid), var(--green-light));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--green-light);
+            box-shadow: 0 12px 40px rgba(46,125,50,0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-pale);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* PLANS PREVIEW */
+        .plans {
+            padding: 100px 60px;
+            background: var(--gray-100);
+        }
+
+        .plans-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .plan-card.featured {
+            border-color: var(--green-mid);
+            background: var(--green-dark);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+        }
+
+        .plan-card.featured:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .plan-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .plan-card.featured .plan-name { color: var(--gold-light); }
+
+        .plan-price {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--green-mid);
+            margin: 16px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .plan-card.featured .plan-price { color: var(--gold-light); }
+
+        .plan-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-600);
+        }
+
+        .plan-card.featured .plan-price span { color: rgba(255,255,255,0.5); }
+
+        .plan-features {
+            list-style: none;
+            margin: 24px 0 32px;
+            text-align: left;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-card.featured .plan-features li {
+            color: rgba(255,255,255,0.7);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .plan-features li::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
+        .plan-card.featured .plan-features li::before { color: var(--gold-light); }
+
+        .btn-plan {
+            display: block;
+            padding: 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: var(--green-pale);
+            color: var(--green-dark);
+        }
+
+        .plan-card.featured .btn-plan {
+            background: var(--gold);
+            color: var(--green-dark);
+        }
+
+        .btn-plan:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* CTA SECTION */
+        .cta-section {
+            padding: 100px 60px;
+            background: linear-gradient(135deg, var(--green-dark), #2d5a3d);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--gray-900);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 30px 60px;
+            font-size: 14px;
+        }
+
+        .footer span { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 24px; }
+            .hero { padding: 100px 24px 60px; }
+            .hero-stats { display: none; }
+            .features { padding: 60px 24px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .plans { padding: 60px 24px; }
+            .plans-grid { grid-template-columns: 1fr; }
+            .plan-card.featured { transform: scale(1); }
+            .cta-section { padding: 60px 24px; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- HEADER -->
-    <header>
-        <div class="logo">Greenstone  Insurance Portal</div>
-        <nav>
-        
-             <a href="/login.html" class="btn">Customer Login</a>
-            <a href="/admin-login.html" class="btn-admin">Admin Login</a>
-
+    <header class="header">
+        <div class="header-logo">Greenstone <span>Insurance</span></div>
+        <nav class="header-nav">
+            <a href="/login.html" class="btn-customer">Customer Login</a>
+            <a href="/admin-login.html" class="btn-secondary">Admin Login</a>
         </nav>
     </header>
 
     <!-- HERO -->
     <section class="hero">
-        <h1>Manage Your Insurance Anytime</h1>
-        <p>Submit claims, track progress and manage your policies easily.</p>
-        <a href="register.html" class="btn-primary">Create your account</a>
+        <div class="hero-content">
+            <div class="hero-badge">Trusted Car Insurance Provider</div>
+            <h1 class="hero-title">
+                Protect What<br>
+                <span>Matters Most</span><br>
+                to You
+            </h1>
+            <p class="hero-subtitle">
+                Comprehensive car insurance plans tailored to your needs. 
+                Submit claims online, track progress in real time, and manage 
+                your policies with ease.
+            </p>
+            <div class="hero-cta">
+                <a href="/register.html" class="btn-hero-primary">Get a Free Quote</a>
+                <a href="/login.html" class="btn-hero-secondary">Sign In</a>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number">10K+</span>
+                <span class="hero-stat-label">Customers</span>
+            </div>
+            <div class="hero-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">99%</span>
+                <span class="hero-stat-label">Satisfaction</span>
+            </div>
+            <div class="hero-divider"></div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">24/7</span>
+                <span class="hero-stat-label">Support</span>
+            </div>
+        </div>
     </section>
 
     <!-- FEATURES -->
     <section class="features">
-        <div class="card">
-            <h3>Submit Claims</h3>
-            <p>Upload photos and lodge claims online.</p>
+        <div class="features-header">
+            <span class="section-tag">Why Choose Us</span>
+            <h2 class="features-title">Everything You Need,<br>All in One Place</h2>
+            <p class="features-subtitle">Manage your car insurance effortlessly with our digital portal designed for your convenience.</p>
         </div>
-        <div class="card">
-            <h3>Track Status</h3>
-            <p>Follow your claim in real time.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h3 class="feature-title">Smart Coverage</h3>
+                <p class="feature-desc">Get a personalised quote based on your car model, driving experience, and usage — no surprises, no hidden fees.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3 class="feature-title">Easy Claims</h3>
+                <p class="feature-desc">Submit claims online in minutes. Track the status of your claim in real time from your personal dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3 class="feature-title">Secure Payments</h3>
+                <p class="feature-desc">Pay your annual premium securely through our encrypted payment system. Full payment history always available.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Policy Dashboard</h3>
+                <p class="feature-desc">View all your active policies, renewal dates, and coverage details from one simple dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Data Security</h3>
+                <p class="feature-desc">Your personal and financial data is protected with industry-standard encryption and secure cloud storage.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Fast Approval</h3>
+                <p class="feature-desc">Get your policy approved instantly online. No paperwork, no waiting rooms — just fast, reliable coverage.</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>Secure Payments</h3>
-            <p>Pay premiums safely online.</p>
+    </section>
+
+    <!-- PLANS -->
+    <section class="plans">
+        <div class="plans-header">
+            <span class="section-tag">Our Plans</span>
+            <h2 class="features-title">Choose the Right<br>Coverage for You</h2>
+            <p class="features-subtitle">Flexible plans designed for every driver. Prices are calculated based on your personal profile.</p>
+        </div>
+
+        <div class="plans-grid">
+            <div class="plan-card">
+                <div class="plan-name">Basic</div>
+                <div class="plan-price">From $299<span>/year</span></div>
+                <ul class="plan-features">
+                    <li>Third party coverage</li>
+                    <li>Roadside assistance</li>
+                    <li>24/7 support</li>
+                    <li>Online claims</li>
+                </ul>
+                <a href="/register.html" class="btn-plan">Get Started</a>
+            </div>
+
+            <div class="plan-card featured">
+                <div class="plan-name">Standard</div>
+                <div class="plan-price">From $499<span>/year</span></div>
+                <ul class="plan-features">
+                    <li>Third party + fire & theft</li>
+                    <li>Roadside assistance</li>
+                    <li>Windscreen cover</li>
+                    <li>24/7 priority support</li>
+                </ul>
+                <a href="/register.html" class="btn-plan">Most Popular</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-name">Premium</div>
+                <div class="plan-price">From $799<span>/year</span></div>
+                <ul class="plan-features">
+                    <li>Full comprehensive cover</li>
+                    <li>Hire car after accident</li>
+                    <li>No excess on claims</li>
+                    <li>24/7 VIP support</li>
+                </ul>
+                <a href="/register.html" class="btn-plan">Get Started</a>
+            </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta">
-        <h2>Start your claim today</h2>
-        
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Get Protected?</h2>
+        <p class="cta-subtitle">Join thousands of drivers who trust Greenstone Insurance.</p>
+        <a href="/register.html" class="btn-hero-primary">Create Your Account</a>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <p>© 2026 Greenstone Financial Services</p>
+    <footer class="footer">
+        <p>© 2026 <span>Greenstone Financial Services</span> — All rights reserved.</p>
     </footer>
 
 </body>
 </html>
-

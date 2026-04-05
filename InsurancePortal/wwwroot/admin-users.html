@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Greenstone Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--gray-900);
+            background: var(--white);
+            overflow-x: hidden;
+            margin-top:60px; /* ajuste conforme altura do header */
+        }
+
+         :root {
+            --green-dark: #1a3a2a;
+            --green-mid: #2e7d32;
+            --green-light: #4caf50;
+            --green-pale: #e8f5e9;
+            --gold: #c9a84c;
+            --gold-light: #f0d080;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-900: #1a1a1a;
+        }
+
+         /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            
+        }
+
+        
+
+
+            
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--green-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .header-logo span {
+            color: var(--gold);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f5f5f5; padding: 10px; text-align: left; font-size: 13px; color: #555; }
+        td { padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        tr:last-child td { border-bottom: none; }
+        .admin-sidebar { background-color: #1a237e; }
+        .admin-sidebar a:hover { background-color: #0d1757; }
+        .empty-msg { color: #999; font-size: 14px; text-align: center; padding: 20px 0; }
+        
+    </style>
+</head>
+<body>
+
+<header class="header">
+        <div class="header-logo">Greenstone <span>Insurance</span></div>
+        <nav class="header-nav">
+            <a href="/admin-login.html" class="btn-secondary" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+<div class="dashboard">
+    <div class="sidebar admin-sidebar">
+        <h3>Admin Menu</h3>
+        <a href="/admin-dashboard.html">🏠 Dashboard</a>
+        <a href="/admin-users.html">👥 Users</a>
+        <a href="/admin-policies.html">📋 Policies</a>
+        <a href="/admin-claims.html">🔧 Claims</a>
+        <a href="/admin-payments.html">💳 Payments</a>
+        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="admin-header">
+            <h1>👥 Registered Users</h1>
+            <p>All customers registered in the system.</p>
+        </div>
+
+        <div class="section">
+            <h2>Users List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTable">
+                    <tr><td colspan="3" class="empty-msg">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const isAdmin = localStorage.getItem("isAdmin");
+    if (!isAdmin || isAdmin === "false") {
+        window.location.href = "/login.html";
+    }
+
+    document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
+
+    const API = "https://insuranceportal-production-b15d.up.railway.app";
+
+    async function loadUsers() {
+        try {
+            const response = await fetch(`${API}/api/admin/users`);
+            const users = await response.json();
+            const table = document.getElementById("usersTable");
+
+            if (users.length === 0) {
+                table.innerHTML = `<tr><td colspan="3" class="empty-msg">No users registered yet.</td></tr>`;
+                return;
+            }
+
+            table.innerHTML = users.map(u => `
+                <tr>
+                    <td>#${u.id}</td>
+                    <td>${u.fullName}</td>
+                    <td>${u.email}</td>
+                </tr>`).join("");
+        } catch (error) {
+            console.error("Error loading users:", error);
+        }
+    }
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/login.html";
+    }
+
+    loadUsers();
+</script>
+
+</body>
+</html>

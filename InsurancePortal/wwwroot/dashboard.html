@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Greenstone Insurance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <style>
+        :root {
+            --green-dark: #1a3a2a;
+            --green-mid: #2e7d32;
+            --gold: #c9a84c;
+        }
+
         .welcome-banner {
             background: linear-gradient(135deg, #2e7d32, #81c784);
             color: white;
@@ -30,11 +37,7 @@
             text-align: center;
             border-left: 5px solid #2e7d32;
         }
-        .stat-card h2 {
-            font-size: 36px;
-            color: #2e7d32;
-            margin: 10px 0 5px;
-        }
+        .stat-card h2 { font-size: 36px; color: #2e7d32; margin: 10px 0 5px; }
         .stat-card p { color: #666; font-size: 14px; }
 
         .quick-actions {
@@ -45,11 +48,8 @@
             margin-bottom: 30px;
         }
         .quick-actions h2 { margin-bottom: 15px; color: #333; }
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+        .action-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+
         .action-btn {
             display: flex;
             flex-direction: column;
@@ -63,7 +63,6 @@
             color: #333;
             width: 140px;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
         .action-btn:hover {
             background: #e8f5e9;
@@ -91,22 +90,27 @@
         }
         .recent-item:last-child { border-bottom: none; }
         .recent-item .info { font-size: 14px; color: #555; }
-        .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .badge-active { background: #e8f5e9; color: #2e7d32; }
         .badge-pending { background: #fff3e0; color: #e65100; }
         .badge-paid { background: #e3f2fd; color: #1565c0; }
         .empty-msg { color: #999; font-size: 14px; text-align: center; padding: 20px 0; }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a3a2a;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        .header-logo span { color: #c9a84c; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Greenstone Insurance Portal</div>
+    <div class="header-logo">Greenstone <span>Insurance</span></div>
     <nav>
         <span id="headerName" style="color:#2e7d32; font-weight:bold; margin-right:15px;"></span>
         <a href="/login.html" class="btn" onclick="logout()">Logout</a>
@@ -121,11 +125,10 @@
         <a href="/claim.html">🔧 Submit Claim</a>
         <a href="/payment.html">💳 Payments</a>
         <a href="/profile.html">👤 Profile</a>
-        <a href="/login.html" class="btn" onclick="logout()" style="margin-top:20px;">Logout</a>
+        <a href="/login.html" onclick="logout()" style="margin-top:20px;" class="btn">Logout</a>
     </div>
 
     <div class="main-content">
-
         <div class="welcome-banner">
             <h1>Welcome back, <span id="userName">Customer</span>! 👋</h1>
             <p>Here's a summary of your insurance activities.</p>
@@ -180,7 +183,6 @@
             <h2>Recent Claims</h2>
             <div id="recentClaims"><p class="empty-msg">Loading...</p></div>
         </div>
-
     </div>
 </div>
 
@@ -188,9 +190,7 @@
     const userId = localStorage.getItem("userId");
     const userName = localStorage.getItem("userFullName");
 
-    if (!userId) {
-        window.location.href = "/login.html";
-    }
+    if (!userId) window.location.href = "/login.html";
 
     document.getElementById("userName").textContent = userName || "Customer";
     document.getElementById("headerName").textContent = userName || "";
@@ -253,4 +253,3 @@
 
 </body>
 </html>
-

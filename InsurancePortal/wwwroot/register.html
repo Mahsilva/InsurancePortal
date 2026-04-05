@@ -8,6 +8,70 @@
 </head>
 <body>
 
+   <style>
+
+        :root {
+            --green-dark: #1a3a2a;
+            --green-mid: #2e7d32;
+            --green-light: #4caf50;
+            --green-pale: #e8f5e9;
+            --gold: #c9a84c;
+            --gold-light: #f0d080;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-900: #1a1a1a;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--green-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .header-logo span {
+            color: var(--gold);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        </style>
+
+<header class="header">
+        <div class="header-logo">Greenstone <span>Insurance</span></div>
+        <nav class="header-nav">
+            <a href="/login.html" class="btn" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+
+
+    
+
 <div class="login-container">
     <h2>Create Account</h2>
 

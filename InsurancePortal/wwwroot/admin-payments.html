@@ -4,73 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payments - Greenstone Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <style>
-
         :root {
-            --green-dark: #1a3a2a;
-            --green-mid: #2e7d32;
-            --green-light: #4caf50;
-            --green-pale: #e8f5e9;
             --gold: #c9a84c;
-            --gold-light: #f0d080;
-            --white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-600: #6c757d;
-            --gray-900: #1a1a1a;
+            --green-dark: #1a3a2a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        
-
-        /* HEADER */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 20px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            
-        }
-
-
-            
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: var(--green-dark);
+            color: #1a3a2a;
             letter-spacing: -0.5px;
+            text-decoration: none;
         }
-
-        .header-logo span {
-            color: var(--gold);
-        }
-
-        .header-nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--gray-900);
-            background: var(--white);
-            overflow-x: hidden;
-            margin-top:60px; /* ajuste conforme altura do header */
-        }
+        .header-logo span { color: #c9a84c; }
 
         .admin-header {
             background: linear-gradient(135deg, #1a237e, #283593);
@@ -79,6 +29,7 @@
             border-radius: 10px;
             margin-bottom: 30px;
         }
+
         .section {
             background: white;
             border-radius: 10px;
@@ -86,6 +37,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             margin-bottom: 20px;
         }
+
         .total-box {
             background: linear-gradient(135deg, #1a237e, #283593);
             color: white;
@@ -97,6 +49,83 @@
             align-items: center;
         }
         .total-box h2 { margin: 0; font-size: 28px; }
+
+        /* FILTRO */
+        .filter-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .filter-box h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 16px;
+        }
+        .filter-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+        }
+        .filter-group input,
+        .filter-group select {
+            padding: 9px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            background: #fafafa;
+            min-width: 180px;
+        }
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #1a237e;
+            background: white;
+        }
+        .btn-filter {
+            padding: 9px 24px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-filter:hover { background: #0d1757; }
+        .btn-clear {
+            padding: 9px 20px;
+            background: #f5f5f5;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-clear:hover { background: #e0e0e0; }
+
+        .filter-result {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #1a237e;
+            font-weight: 500;
+        }
+
         table { width: 100%; border-collapse: collapse; }
         th { background: #f5f5f5; padding: 10px; text-align: left; font-size: 13px; color: #555; }
         td { padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
@@ -110,12 +139,13 @@
 </head>
 <body>
 
-<header class="header">
-        <div class="header-logo">Greenstone <span>Insurance</span></div>
-        <nav class="header-nav">
-            <a href="/admin-login.html" class="btn-secondary" onclick="logout()">Logout</a>
-        </nav>
-    </header>
+<header>
+    <div class="header-logo">Greenstone <span>Insurance</span></div>
+    <nav>
+        <span id="headerName" style="color:#1a237e; font-weight:bold; margin-right:15px;"> Admin</span>
+        <a href="/index.html" class="btn" style="background:#1a237e; " onclick="logout()">Logout</a>
+    </nav>
+</header>
 
 <div class="dashboard">
     <div class="sidebar admin-sidebar">
@@ -125,7 +155,7 @@
         <a href="/admin-policies.html">📋 Policies</a>
         <a href="/admin-claims.html">🔧 Claims</a>
         <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+        <a href="/index.html" onclick="logout()" class="btn-admin" style="margin-top:20px;">Logout</a>
     </div>
 
     <div class="main-content">
@@ -134,15 +164,42 @@
             <p>Overview of all transactions in the system.</p>
         </div>
 
-        <!-- Total arrecadado -->
+        <!-- Total Revenue -->
         <div class="total-box">
             <div>
-                <p style="margin:0; opacity:0.8;">Total Revenue</p>
+                <p style="margin:0; opacity:0.8;">Total Revenue (filtered)</p>
                 <h2 id="totalRevenue">$0</h2>
             </div>
             <div style="font-size:40px;">💰</div>
         </div>
 
+        <!-- Filtros -->
+        <div class="filter-box">
+            <h2>🔍 Filter Payments</h2>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="filterName" placeholder="e.g. John Smith">
+                </div>
+                <div class="filter-group">
+                    <label>From Date</label>
+                    <input type="date" id="filterFrom">
+                </div>
+                <div class="filter-group">
+                    <label>To Date</label>
+                    <input type="date" id="filterTo">
+                </div>
+                <div class="filter-group">
+                    <button class="btn-filter" onclick="applyFilter()">Apply Filter</button>
+                </div>
+                <div class="filter-group">
+                    <button class="btn-clear" onclick="clearFilter()">Clear</button>
+                </div>
+            </div>
+            <div class="filter-result" id="filterResult"></div>
+        </div>
+
+        <!-- Tabela -->
         <div class="section">
             <h2>Payments List</h2>
             <table>
@@ -174,41 +231,87 @@
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 
     const API = "https://insuranceportal-production-b15d.up.railway.app";
+    let allPayments = [];
 
     async function loadPayments() {
         try {
             const response = await fetch(`${API}/api/admin/payments`);
-            const payments = await response.json();
-            const table = document.getElementById("paymentsTable");
-
-            if (payments.length === 0) {
-                table.innerHTML = `<tr><td colspan="7" class="empty-msg">No payments found.</td></tr>`;
-                document.getElementById("totalRevenue").textContent = "$0";
-                return;
-            }
-
-            // Calcular total
-            const total = payments.reduce((sum, p) => sum + p.amount, 0);
-            document.getElementById("totalRevenue").textContent = `$${total.toFixed(2)}`;
-
-            table.innerHTML = payments.map(p => `
-                <tr>
-                    <td>#${p.id}</td>
-                    <td>${p.customerName}</td>
-                    <td>${p.customerEmail}</td>
-                    <td>${p.policyNumber}</td>
-                    <td>$${p.amount}</td>
-                    <td>${new Date(p.date).toLocaleDateString()}</td>
-                    <td><span class="badge badge-paid">${p.status}</span></td>
-                </tr>`).join("");
+            allPayments = await response.json();
+            renderTable(allPayments);
         } catch (error) {
             console.error("Error loading payments:", error);
         }
     }
 
+    function renderTable(payments) {
+        const table = document.getElementById("paymentsTable");
+
+        if (payments.length === 0) {
+            table.innerHTML = `<tr><td colspan="7" class="empty-msg">No payments found.</td></tr>`;
+            document.getElementById("totalRevenue").textContent = "$0";
+            return;
+        }
+
+        const total = payments.reduce((sum, p) => sum + p.amount, 0);
+        document.getElementById("totalRevenue").textContent = `$${total.toFixed(2)}`;
+
+        table.innerHTML = payments.map(p => `
+            <tr>
+                <td>#${p.id}</td>
+                <td>${p.customerName}</td>
+                <td>${p.customerEmail}</td>
+                <td>${p.policyNumber}</td>
+                <td>$${p.amount}</td>
+                <td>${new Date(p.date).toLocaleDateString()}</td>
+                <td><span class="badge badge-paid">${p.status}</span></td>
+            </tr>`).join("");
+    }
+
+    function applyFilter() {
+        const name = document.getElementById("filterName").value.toLowerCase().trim();
+        const from = document.getElementById("filterFrom").value;
+        const to = document.getElementById("filterTo").value;
+
+        let filtered = allPayments;
+
+        if (name) {
+            filtered = filtered.filter(p =>
+                p.customerName.toLowerCase().includes(name) ||
+                p.customerEmail.toLowerCase().includes(name)
+            );
+        }
+
+        if (from) {
+            filtered = filtered.filter(p => new Date(p.date) >= new Date(from));
+        }
+
+        if (to) {
+            const toDate = new Date(to);
+            toDate.setHours(23, 59, 59);
+            filtered = filtered.filter(p => new Date(p.date) <= toDate);
+        }
+
+        renderTable(filtered);
+
+        const resultMsg = document.getElementById("filterResult");
+        if (filtered.length === 0) {
+            resultMsg.textContent = "No payments found for the selected filters.";
+        } else {
+            resultMsg.textContent = `Showing ${filtered.length} payment(s)${name ? ` for "${name}"` : ""}${from ? ` from ${from}` : ""}${to ? ` to ${to}` : ""}.`;
+        }
+    }
+
+    function clearFilter() {
+        document.getElementById("filterName").value = "";
+        document.getElementById("filterFrom").value = "";
+        document.getElementById("filterTo").value = "";
+        document.getElementById("filterResult").textContent = "";
+        renderTable(allPayments);
+    }
+
     function logout() {
         localStorage.clear();
-        window.location.href = "/login.html";
+        window.location.href = "/index.html";
     }
 
     loadPayments();

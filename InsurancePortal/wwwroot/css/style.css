@@ -93,8 +93,8 @@ nav a {
 }
 
 .btn-admin {
-    background-color: #1a237e;
-    color: white !important;
+    background-color: blue;
+    color: #1a237e !important;
     padding: 10px 20px;
     border-radius: 5px;
     display: inline-block;

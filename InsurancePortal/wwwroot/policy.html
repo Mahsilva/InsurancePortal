@@ -4,338 +4,500 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Policies - Greenstone Insurance Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <style>
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            color: var(--gray-900);
-            background: var(--white);
-            overflow-x: hidden;
-           
-            
-        }
-
-         :root {
+        :root {
             --green-dark: #1a3a2a;
             --green-mid: #2e7d32;
-            --green-light: #4caf50;
-            --green-pale: #e8f5e9;
             --gold: #c9a84c;
-            --gold-light: #f0d080;
-            --white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-600: #6c757d;
-            --gray-900: #1a1a1a;
-        }
-
-        /* HEADER */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 20px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
         }
 
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: var(--green-dark);
+            color: #1a3a2a;
             letter-spacing: -0.5px;
         }
-
-        .header-logo span {
-            color: var(--gold);
-        }
-
-        .header-nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+        .header-logo span { color: #c9a84c; }
 
         .step { display: none; }
         .step.active { display: block; }
-        .step-indicator { display: flex; gap: 10px; margin-bottom: 20px; }
+
+        .step-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
         .step-indicator span {
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
             background: #ccc;
             color: white;
             font-weight: bold;
+            font-size: 13px;
+            transition: 0.3s;
         }
         .step-indicator span.active { background: #2e7d32; }
         .step-indicator span.done { background: #81c784; }
+
         .form-group { margin: 15px 0; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group select {
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group select {
             width: 100%;
             max-width: 400px;
-            padding: 10px;
+            padding: 10px 14px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        .btn-step {
+            padding: 10px 28px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-step:hover {
+            background: #1a3a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46,125,50,0.3);
+        }
+        .btn-step-back {
+            padding: 10px 28px;
+            background: #f0f0f0;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-step-back:hover {
+            background: #e0e0e0;
+            border-color: #999;
+            transform: translateY(-2px);
+        }
+
+        .plans-grid {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
         }
         .plan-card {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 24px;
             flex: 1;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            min-width: 200px;
             text-align: center;
+            transition: all 0.3s;
         }
-        .plan-card h2 { color: #2e7d32; margin: 10px 0; }
-        .plan-card ul { text-align: left; margin: 10px 0; padding-left: 20px; }
-        .btn-outline {
-            border: 2px solid #2e7d32;
-            color: #2e7d32;
-            padding: 8px 20px;
-            border-radius: 5px;
-            background: white;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
+        .plan-card:hover {
+            border-color: #2e7d32;
+            box-shadow: 0 8px 24px rgba(46,125,50,0.12);
+            transform: translateY(-3px);
         }
-        .btn-outline:hover, .btn-outline.selected {
-            background: #2e7d32;
+        .plan-card.featured {
+            border-color: #2e7d32;
+            background: #1a3a2a;
             color: white;
+        }
+        .plan-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .plan-card.featured h3 { color: #c9a84c; }
+        .plan-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2e7d32;
+            margin: 12px 0;
+        }
+        .plan-card.featured .plan-price { color: #c9a84c; }
+        .plan-price span { font-size: 14px; font-weight: 400; color: #666; }
+        .plan-card.featured .plan-price span { color: rgba(255,255,255,0.5); }
+        .plan-features {
+            list-style: none;
+            text-align: left;
+            margin: 16px 0 20px;
+        }
+        .plan-features li {
+            padding: 6px 0;
+            font-size: 13px;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .plan-card.featured .plan-features li {
+            color: rgba(255,255,255,0.75);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        .plan-features li::before { content: '✓'; color: #2e7d32; font-weight: 700; }
+        .plan-card.featured .plan-features li::before { color: #c9a84c; }
+        .btn-select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #e8f5e9;
+            color: #1a3a2a;
+        }
+        .btn-select:hover { background: #2e7d32; color: white; transform: translateY(-1px); }
+        .plan-card.featured .btn-select { background: #c9a84c; color: #1a3a2a; }
+        .plan-card.featured .btn-select:hover { background: #f0d080; }
+
+        .policy-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #2e7d32;
+            margin-bottom: 15px;
+        }
+        .policy-card h3 { color: #1a3a2a; margin-bottom: 8px; }
+        .policy-card p { font-size: 14px; color: #555; margin: 4px 0; }
+        .policy-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        .quote-info {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1a3a2a;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #1a3a2a;
+            margin: 30px 0 15px;
         }
     </style>
 </head>
 <body>
 
+<header>
+    <div class="header-logo">Greenstone <span>Insurance</span></div>
+    <nav>
+        <span id="headerName" style="color:#2e7d32; font-weight:bold; margin-right:15px;"></span>
+        <a href="/login.html" class="btn" onclick="logout()">Logout</a>
+    </nav>
+</header>
 
-<header class="header">
-        <div class="header-logo">Greenstone <span>Insurance</span></div>
-        <nav class="header-nav">
-            <a href="/login.html" class="btn" onclick="logout()">Logout</a>
-        </nav>
-    </header>
-
-    <div class="dashboard">
-        <div class="sidebar">
-            <h3>Menu</h3>
-            <a href="/dashboard.html">🏠 Dashboard</a>
+<div class="dashboard">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <a href="/dashboard.html">🏠 Dashboard</a>
+        <a href="/policy.html">📋 My Policies</a>
         <a href="/claim.html">🔧 Submit Claim</a>
         <a href="/payment.html">💳 Payments</a>
-        <a href="/policy.html">📋 Policies</a>
-        <a href="/profile.html">👥 Profile</a>
-            <a href="/login.html" class="btn">Logout</a>
-        </div>
-
-        <div class="main-content">
-            <h1>Get a Car Insurance Quote</h1>
-
-            <!-- Indicador de etapas -->
-            <div class="step-indicator">
-                <span id="ind1" class="active">1. Car</span>
-                <span id="ind2">2. Driver</span>
-                <span id="ind3">3. Usage</span>
-                <span id="ind4">4. Plans</span>
-            </div>
-
-            <!-- Etapa 1: Dados do carro -->
-            <div class="step active" id="step1">
-                <h2>Car Details</h2>
-                <div class="form-group">
-                    <label>Car Model</label>
-                    <input type="text" id="carModel" placeholder="ex: Toyota Corolla">
-                </div>
-                <div class="form-group">
-                    <label>Car Year</label>
-                    <input type="number" id="carYear" placeholder="ex: 2020" min="1990" max="2026">
-                </div>
-                <div class="form-group">
-                    <label>Car Color</label>
-                    <input type="text" id="carColor" placeholder="ex: White">
-                </div>
-                <div class="form-group">
-                    <label>Car Plate</label>
-                    <input type="text" id="carPlate" placeholder="ex: ABC-1234">
-                </div>
-                <button class="btn" onclick="goToStep(2)">Next →</button>
-            </div>
-
-            <!-- Etapa 2: Dados do condutor -->
-            <div class="step" id="step2">
-                <h2>Driver Details</h2>
-                <div class="form-group">
-                    <label>Driver Age</label>
-                    <input type="number" id="driverAge" placeholder="ex: 30" min="18" max="99">
-                </div>
-                <div class="form-group">
-                    <label>Years of Driving Experience</label>
-                    <input type="number" id="drivingExperience" placeholder="ex: 5" min="0" max="80">
-                </div>
-                <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
-                <button class="btn" onclick="goToStep(3)" style="margin-left:10px;">Next →</button>
-            </div>
-
-            <!-- Etapa 3: Uso do carro -->
-            <div class="step" id="step3">
-                <h2>Car Usage</h2>
-                <div class="form-group">
-                    <label>Primary Use</label>
-                    <select id="carUsage">
-                        <option value="Personal">Personal</option>
-                        <option value="Commercial">Commercial</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Estimated KM per Year</label>
-                    <select id="kmPerYear">
-                        <option value="10000">Less than 10,000 km</option>
-                        <option value="20000">10,000 - 20,000 km</option>
-                        <option value="30000">More than 20,000 km</option>
-                    </select>
-                </div>
-                <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
-                <button class="btn" onclick="calculatePlans()" style="margin-left:10px;">Get Quote →</button>
-            </div>
-
-            <!-- Etapa 4: Planos -->
-            <div class="step" id="step4">
-                <h2>Choose Your Plan</h2>
-                <p id="quoteInfo" style="margin-bottom:20px; color:#555;"></p>
-                <div class="cards" id="plansContainer"></div>
-                <button class="btn-secondary" onclick="goToStep(3)" style="margin-top:20px;">← Back</button>
-            </div>
-
-            <!-- Apólices ativas -->
-            <h2 style="margin-top: 40px;">Your Active Policies</h2>
-            <div id="policiesList" class="cards"></div>
-        </div>
+        <a href="/profile.html">👤 Profile</a>
+        <a href="/login.html" onclick="logout()" class="btn" style="margin-top:20px;">Logout</a>
     </div>
 
-    <script>
-        const userId = localStorage.getItem("userId");
+    <div class="main-content">
+        <h1>Get a Car Insurance Quote</h1>
 
-        function goToStep(step) {
-            // Validar campos antes de avançar
-            if (step === 2) {
-                if (!document.getElementById("carModel").value ||
-                    !document.getElementById("carYear").value ||
-                    !document.getElementById("carColor").value ||
-                    !document.getElementById("carPlate").value) {
-                    alert("Please fill in all car details.");
-                    return;
-                }
-            }
-            if (step === 3) {
-                if (!document.getElementById("driverAge").value ||
-                    !document.getElementById("drivingExperience").value) {
-                    alert("Please fill in all driver details.");
-                    return;
-                }
-            }
+        <div class="step-indicator">
+            <span id="ind1" class="active">1. Car</span>
+            <span id="ind2">2. Driver</span>
+            <span id="ind3">3. Usage</span>
+            <span id="ind4">4. Plans</span>
+        </div>
 
-            document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
-            document.getElementById("step" + step).classList.add("active");
+        <!-- Etapa 1: Dados do carro -->
+        <div class="step active" id="step1">
+            <h2>Car Details</h2>
+            <div class="form-group">
+                <label>Car Make (Brand)</label>
+                <select id="carMake" onchange="loadModels()">
+                    <option value="">-- Select Make --</option>
+                    <option>Toyota</option>
+                    <option>Ford</option>
+                    <option>Holden</option>
+                    <option>Mazda</option>
+                    <option>Hyundai</option>
+                    <option>Kia</option>
+                    <option>Mitsubishi</option>
+                    <option>Volkswagen</option>
+                    <option>Honda</option>
+                    <option>Subaru</option>
+                    <option>Nissan</option>
+                    <option>BMW</option>
+                    <option>Mercedes-Benz</option>
+                    <option>Audi</option>
+                    <option>Jeep</option>
+                    <option>Isuzu</option>
+                    <option>Suzuki</option>
+                    <option>Lexus</option>
+                    <option>Volvo</option>
+                    <option>Land Rover</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Car Model</label>
+                <select id="carModel" disabled>
+                    <option value="">-- Select Make first --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Car Year</label>
+                <input type="number" id="carYear" placeholder="ex: 2020" min="1990" max="2026">
+            </div>
+            <div class="form-group">
+                <label>Car Color</label>
+                <input type="text" id="carColor" placeholder="ex: White">
+            </div>
+            <div class="form-group">
+                <label>Car Plate</label>
+                <input type="text" id="carPlate" placeholder="ex: ABC-1234">
+            </div>
+            <button class="btn-step" onclick="goToStep(2)">Next →</button>
+        </div>
 
-            document.querySelectorAll(".step-indicator span").forEach((s, i) => {
-                s.classList.remove("active", "done");
-                if (i + 1 < step) s.classList.add("done");
-                if (i + 1 === step) s.classList.add("active");
-            });
+        <!-- Etapa 2: Dados do condutor -->
+        <div class="step" id="step2">
+            <h2>Driver Details</h2>
+            <div class="form-group">
+                <label>Driver Age</label>
+                <input type="number" id="driverAge" placeholder="ex: 30" min="18" max="99">
+            </div>
+            <div class="form-group">
+                <label>Years of Driving Experience</label>
+                <input type="number" id="drivingExperience" placeholder="ex: 5" min="0" max="80">
+            </div>
+            <button class="btn-step-back" onclick="goToStep(1)">← Back</button>
+            <button class="btn-step" onclick="goToStep(3)" style="margin-left:10px;">Next →</button>
+        </div>
+
+        <!-- Etapa 3: Uso do carro -->
+        <div class="step" id="step3">
+            <h2>Car Usage</h2>
+            <div class="form-group">
+                <label>Primary Use</label>
+                <select id="carUsage">
+                    <option value="Personal">Personal</option>
+                    <option value="Commercial">Commercial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Estimated KM per Year</label>
+                <select id="kmPerYear">
+                    <option value="10000">Less than 10,000 km</option>
+                    <option value="20000">10,000 - 20,000 km</option>
+                    <option value="30000">More than 20,000 km</option>
+                </select>
+            </div>
+            <button class="btn-step-back" onclick="goToStep(2)">← Back</button>
+            <button class="btn-step" onclick="calculatePlans()" style="margin-left:10px;">Get Quote →</button>
+        </div>
+
+        <!-- Etapa 4: Planos -->
+        <div class="step" id="step4">
+            <h2>Choose Your Plan</h2>
+            <div class="quote-info" id="quoteInfo"></div>
+            <div class="plans-grid" id="plansContainer"></div>
+            <button class="btn-step-back" onclick="goToStep(3)" style="margin-top:20px;">← Back</button>
+        </div>
+
+        <!-- Apólices ativas -->
+        <h2 class="section-title">Your Active Policies</h2>
+        <div id="policiesList"></div>
+    </div>
+</div>
+
+<script>
+    const userId = localStorage.getItem("userId");
+    if (!userId) window.location.href = "/login.html";
+
+    let calculatedPlans = [];
+
+    const carData = {
+        "Toyota": ["Corolla", "Camry", "RAV4", "HiLux", "LandCruiser", "Yaris", "Kluger", "Prado", "Fortuner", "C-HR"],
+        "Ford": ["Ranger", "Escape", "Everest", "Mustang", "Focus", "Fiesta", "Territory", "Puma", "Bronco"],
+        "Holden": ["Commodore", "Colorado", "Trax", "Trailblazer", "Captiva", "Barina", "Astra", "Cruze"],
+        "Mazda": ["CX-5", "CX-3", "CX-9", "Mazda3", "Mazda2", "BT-50", "CX-30", "MX-5"],
+        "Hyundai": ["i30", "Tucson", "Santa Fe", "Kona", "i20", "Venue", "Sonata", "Staria"],
+        "Kia": ["Sportage", "Cerato", "Sorento", "Stinger", "Carnival", "Seltos", "EV6", "Niro"],
+        "Mitsubishi": ["Triton", "ASX", "Outlander", "Eclipse Cross", "Pajero Sport", "Pajero", "Mirage"],
+        "Volkswagen": ["Golf", "Tiguan", "Amarok", "Polo", "Passat", "T-Roc", "T-Cross", "Touareg"],
+        "Honda": ["CR-V", "HR-V", "Civic", "Jazz", "Accord", "City", "Odyssey"],
+        "Subaru": ["Forester", "Outback", "XV", "Impreza", "WRX", "BRZ", "Ascent"],
+        "Nissan": ["X-Trail", "Navara", "Qashqai", "Patrol", "Leaf", "Juke", "Pathfinder"],
+        "BMW": ["3 Series", "5 Series", "X3", "X5", "1 Series", "X1", "7 Series", "X7"],
+        "Mercedes-Benz": ["C-Class", "E-Class", "GLC", "GLE", "A-Class", "CLA", "GLA", "S-Class"],
+        "Audi": ["A3", "A4", "Q3", "Q5", "A6", "Q7", "Q2", "TT"],
+        "Jeep": ["Wrangler", "Grand Cherokee", "Compass", "Renegade", "Gladiator", "Cherokee"],
+        "Isuzu": ["D-Max", "MU-X"],
+        "Suzuki": ["Swift", "Vitara", "Jimny", "S-Cross", "Baleno"],
+        "Lexus": ["RX", "NX", "ES", "IS", "UX", "LX", "GX"],
+        "Volvo": ["XC40", "XC60", "XC90", "S60", "V60", "C40"],
+        "Land Rover": ["Defender", "Discovery", "Range Rover", "Range Rover Sport", "Freelander"]
+    };
+
+    function loadModels() {
+        const make = document.getElementById("carMake").value;
+        const modelSelect = document.getElementById("carModel");
+        if (!make) {
+            modelSelect.innerHTML = `<option value="">-- Select Make first --</option>`;
+            modelSelect.disabled = true;
+            return;
         }
+        const models = carData[make] || [];
+        modelSelect.innerHTML = `<option value="">-- Select Model --</option>` +
+            models.map(m => `<option value="${make} ${m}">${m}</option>`).join("");
+        modelSelect.disabled = false;
+    }
 
-        function calculatePlans() {
-            if (!document.getElementById("carUsage").value) {
-                alert("Please fill in all usage details.");
+    function goToStep(step) {
+        if (step === 2) {
+            if (!document.getElementById("carMake").value ||
+                !document.getElementById("carModel").value ||
+                !document.getElementById("carYear").value ||
+                !document.getElementById("carColor").value ||
+                !document.getElementById("carPlate").value) {
+                alert("Please fill in all car details.");
                 return;
             }
-
-            const carYear = parseInt(document.getElementById("carYear").value);
-            const driverAge = parseInt(document.getElementById("driverAge").value);
-            const drivingExperience = parseInt(document.getElementById("drivingExperience").value);
-            const carUsage = document.getElementById("carUsage").value;
-            const kmPerYear = parseInt(document.getElementById("kmPerYear").value);
-
-            // Calcular preço base
-            let basePrice = 300;
-
-            // Carro mais velho = mais barato
-            const carAge = 2026 - carYear;
-            if (carAge <= 3) basePrice += 100;
-            else if (carAge <= 7) basePrice += 50;
-
-            // Condutor jovem = mais caro
-            if (driverAge < 25) basePrice += 150;
-            else if (driverAge < 30) basePrice += 80;
-
-            // Pouca experiência = mais caro
-            if (drivingExperience < 2) basePrice += 120;
-            else if (drivingExperience < 5) basePrice += 60;
-
-            // Uso comercial = mais caro
-            if (carUsage === "Commercial") basePrice += 100;
-
-            // Mais km = mais caro
-            if (kmPerYear >= 30000) basePrice += 80;
-            else if (kmPerYear >= 20000) basePrice += 40;
-
-            const plans = [
-                {
-                    name: "Basic",
-                    price: basePrice,
-                    features: ["Third party coverage", "Roadside assistance", "24/7 support"]
-                },
-                {
-                    name: "Standard",
-                    price: Math.round(basePrice * 1.5),
-                    features: ["Third party + fire & theft", "Roadside assistance", "Windscreen cover", "24/7 support"]
-                },
-                {
-                    name: "Premium",
-                    price: Math.round(basePrice * 2.2),
-                    features: ["Full comprehensive cover", "Hire car after accident", "No excess on claims", "24/7 priority support"]
-                }
-            ];
-
-            const container = document.getElementById("plansContainer");
-            container.innerHTML = "";
-
-            plans.forEach(plan => {
-                container.innerHTML += `
-                    <div class="plan-card">
-                        <h3>${plan.name}</h3>
-                        <ul>${plan.features.map(f => `<li>${f}</li>`).join("")}</ul>
-                        <h2>$${plan.price}/year</h2>
-                        <button class="btn" onclick="buyPolicy('${plan.name}', ${plan.price})">Select ${plan.name}</button>
-                    </div>`;
-            });
-
-            document.getElementById("quoteInfo").textContent =
-                `Quote based on: ${document.getElementById("carModel").value}, ${carYear} — Driver age: ${driverAge}`;
-
-            goToStep(4);
+        }
+        if (step === 3) {
+            if (!document.getElementById("driverAge").value ||
+                !document.getElementById("drivingExperience").value) {
+                alert("Please fill in all driver details.");
+                return;
+            }
         }
 
-        async function buyPolicy(planName, price) {
-            const policy = {
-                userId: parseInt(userId),
-                carModel: document.getElementById("carModel").value,
-                carYear: parseInt(document.getElementById("carYear").value),
-                carColor: document.getElementById("carColor").value,
-                carPlate: document.getElementById("carPlate").value,
-                driverAge: parseInt(document.getElementById("driverAge").value),
-                drivingExperience: parseInt(document.getElementById("drivingExperience").value),
-                carUsage: document.getElementById("carUsage").value,
-                kmPerYear: parseInt(document.getElementById("kmPerYear").value),
-                planType: planName,
-                price: price
-            };
+        document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+        document.getElementById("step" + step).classList.add("active");
 
+        document.querySelectorAll(".step-indicator span").forEach((s, i) => {
+            s.classList.remove("active", "done");
+            if (i + 1 < step) s.classList.add("done");
+            if (i + 1 === step) s.classList.add("active");
+        });
+    }
+
+    function calculatePlans() {
+        const carYear = parseInt(document.getElementById("carYear").value);
+        const driverAge = parseInt(document.getElementById("driverAge").value);
+        const drivingExperience = parseInt(document.getElementById("drivingExperience").value);
+        const carUsage = document.getElementById("carUsage").value;
+        const kmPerYear = parseInt(document.getElementById("kmPerYear").value);
+
+        let basePrice = 300;
+        const carAge = 2026 - carYear;
+        if (carAge <= 3) basePrice += 100;
+        else if (carAge <= 7) basePrice += 50;
+        if (driverAge < 25) basePrice += 150;
+        else if (driverAge < 30) basePrice += 80;
+        if (drivingExperience < 2) basePrice += 120;
+        else if (drivingExperience < 5) basePrice += 60;
+        if (carUsage === "Commercial") basePrice += 100;
+        if (kmPerYear >= 30000) basePrice += 80;
+        else if (kmPerYear >= 20000) basePrice += 40;
+
+        calculatedPlans = [
+            { name: "Basic", price: basePrice, features: ["Third party coverage", "Roadside assistance", "24/7 support"], featured: false },
+            { name: "Standard", price: Math.round(basePrice * 1.5), features: ["Third party + fire & theft", "Roadside assistance", "Windscreen cover", "24/7 support"], featured: true },
+            { name: "Premium", price: Math.round(basePrice * 2.2), features: ["Full comprehensive cover", "Hire car after accident", "No excess on claims", "24/7 priority support"], featured: false }
+        ];
+
+        const container = document.getElementById("plansContainer");
+        container.innerHTML = "";
+
+        calculatedPlans.forEach((plan, index) => {
+            const card = document.createElement("div");
+            card.className = `plan-card${plan.featured ? " featured" : ""}`;
+            card.innerHTML = `
+                <h3>${plan.name}</h3>
+                <div class="plan-price">$${plan.price}<span>/year</span></div>
+                <ul class="plan-features">
+                    ${plan.features.map(f => `<li>${f}</li>`).join("")}
+                </ul>
+                <button class="btn-select" data-index="${index}">Select ${plan.name}</button>
+            `;
+            container.appendChild(card);
+        });
+
+        container.querySelectorAll(".btn-select").forEach(btn => {
+            btn.addEventListener("click", function() {
+                const index = parseInt(this.getAttribute("data-index"));
+                const plan = calculatedPlans[index];
+                buyPolicy(plan.name, plan.price);
+            });
+        });
+
+        const carModel = document.getElementById("carModel").value;
+        document.getElementById("quoteInfo").textContent =
+            `Quote based on: ${carModel}, ${carYear} — Driver age: ${driverAge}`;
+
+        goToStep(4);
+    }
+
+    async function buyPolicy(planName, price) {
+        if (!confirm(`Confirm purchase of ${planName} plan for $${price}/year?`)) return;
+
+        const policy = {
+            userId: parseInt(userId),
+            carModel: document.getElementById("carModel").value,
+            carYear: parseInt(document.getElementById("carYear").value),
+            carColor: document.getElementById("carColor").value,
+            carPlate: document.getElementById("carPlate").value,
+            driverAge: parseInt(document.getElementById("driverAge").value),
+            drivingExperience: parseInt(document.getElementById("drivingExperience").value),
+            carUsage: document.getElementById("carUsage").value,
+            kmPerYear: parseInt(document.getElementById("kmPerYear").value),
+            planType: planName,
+            price: price
+        };
+
+        try {
             const response = await fetch("https://insuranceportal-production-b15d.up.railway.app/api/policy/buy", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -343,42 +505,59 @@
             });
 
             if (response.ok) {
-                alert(`${planName} plan purchased successfully!`);
+                alert(`✅ ${planName} plan purchased successfully!`);
+                document.getElementById("carMake").value = "";
+                document.getElementById("carModel").innerHTML = `<option value="">-- Select Make first --</option>`;
+                document.getElementById("carModel").disabled = true;
+                ["carYear","carColor","carPlate","driverAge","drivingExperience"].forEach(id => {
+                    document.getElementById(id).value = "";
+                });
                 goToStep(1);
                 loadPolicies();
             } else {
-                alert("Error purchasing policy.");
+                alert("Error purchasing policy. Please try again.");
             }
+        } catch (error) {
+            console.error(error);
+            alert("Error connecting to server.");
         }
+    }
 
-        async function loadPolicies() {
+    async function loadPolicies() {
+        try {
             const response = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/policy/${userId}`);
             const policies = await response.json();
             const list = document.getElementById("policiesList");
             list.innerHTML = "";
 
             if (policies.length === 0) {
-                list.innerHTML = "<p>No active policies.</p>";
+                list.innerHTML = "<p style='color:#999;'>No active policies yet.</p>";
                 return;
             }
 
             policies.forEach(p => {
                 list.innerHTML += `
-                    <div class="card">
-                        <h3>${p.planType} Plan</h3>
-                        <p>${p.carModel} (${p.carYear})</p>
-                        <p>Plate: ${p.carPlate}</p>
-                        <p>Policy #: ${p.policyNumber}</p>
-                        <p>Price: $${p.price}/year</p>
-                        <p>Status: ${p.status}</p>
-                        <p>Expires: ${new Date(p.endDate).toLocaleDateString()}</p>
+                    <div class="policy-card">
+                        <h3>${p.planType} Plan — ${p.carModel} (${p.carYear})</h3>
+                        <p>🚗 Plate: ${p.carPlate}</p>
+                        <p>📋 Policy #: ${p.policyNumber}</p>
+                        <p>💰 Price: $${p.price}/year</p>
+                        <p>📅 Expires: ${new Date(p.endDate).toLocaleDateString()}</p>
+                        <span class="policy-badge">${p.status}</span>
                     </div>`;
             });
+        } catch (error) {
+            console.error(error);
         }
+    }
 
-        loadPolicies();
-    </script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/login.html";
+    }
+
+    loadPolicies();
+</script>
 
 </body>
 </html>
-

@@ -87,7 +87,6 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Npgsq
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\InsurancePortal.sourcelink.json
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-a9r15ltav6-a9r15ltav6.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\ziteg2w5nn-{0}-3xnq3t2zlo-3xnq3t2zlo.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\kjdqqcxhq4-{0}-87oesicejn-87oesicejn.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\rkuejvai0k-{0}-eyo74olhk4-eyo74olhk4.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\dz594f6mpb-{0}-lsab0iepvf-lsab0iepvf.gz
@@ -101,3 +100,4 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compr
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\q6to0i03vv-{0}-nit0mwjq8r-nit0mwjq8r.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\nfn4l844xx-{0}-dxm40ivqnc-dxm40ivqnc.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\tjuu3qh89n-{0}-ems3vxynr2-ems3vxynr2.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\ziteg2w5nn-{0}-rylu9aindw-rylu9aindw.gz

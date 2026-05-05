@@ -12,13 +12,22 @@
 <header class="header">
         <div class="header-logo">Greenstone <span>Insurance</span></div>
         <nav class="header-nav">
-            <span id="headerName" style="color:#2e7d32; font-weight:bold; margin-right:15px;"></span>
+            
+            
             <a href="/index.html" class="btn" onclick="logout()">Logout</a>
         </nav>
     </header>
 
     <style>
 
+        body {
+            background: var(--green-pale);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px; /* Espaço para o header fixo */
+        }
 
         :root {
             --green-dark: #1a3a2a;
@@ -72,7 +81,7 @@
 
 
     <div class="login-container">
-        <h2>Login</h2>
+        <h2 style="color:#2e7d32">Customer Login</h2>
 
         <form id="loginForm">
             <input type="email" id="email" placeholder="Email" required>

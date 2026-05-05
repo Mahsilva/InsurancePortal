@@ -31,6 +31,24 @@ namespace DatabaseInsurance.Controllers
             return Ok(user);
         }
 
+        // CHANGE PASSWORD
+[HttpPut("change-password")]
+public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
+{
+    var user = _context.Users.FirstOrDefault(u => u.Id == request.UserId);
+
+    if (user == null)
+        return NotFound("User not found");
+
+    if (user.Password != request.CurrentPassword)
+        return BadRequest("Current password is incorrect");
+
+    user.Password = request.NewPassword;
+    _context.SaveChanges();
+
+    return Ok("Password updated successfully");
+}
+
         // LOGIN
         [HttpPost("login")]
         public IActionResult Login(User login)
@@ -49,4 +67,11 @@ namespace DatabaseInsurance.Controllers
     });
 }
     }
+
+    public class ChangePasswordRequest
+{
+    public int UserId { get; set; }
+    public required string CurrentPassword { get; set; }
+    public required string NewPassword { get; set; }
+}
 }

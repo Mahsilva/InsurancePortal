@@ -66,36 +66,42 @@
         }
 
         .btn-customer {
-            padding: 10px 24px;
-            background: var(--green-mid);
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
+    padding: 11px 24px;
+    background: #2e7d32;
+    color: white !important;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+}
 
-        .btn-customer:hover {
-            background: var(--green-dark);
-            transform: translateY(-1px);
-        }
+.btn-customer:hover {
+    background: #1a3a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46,125,50,0.3);
+}
 
-        .btn-admin-nav {
-            padding: 10px 24px;
-            background: var(--green-dark);
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
+        .btn-admin {
+    padding: 11px 24px;
+    background: #1a237e;
+    color: white !important;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+}
 
-        .btn-admin-nav:hover {
-            background: #0d1f16;
-            transform: translateY(-1px);
-        }
+.btn-admin:hover {
+    background: #0d1757 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26,35,126,0.3);
+}
+
+    
 
         /* HERO */
         .hero {
@@ -551,7 +557,7 @@
         <div class="header-logo">Greenstone <span>Insurance</span></div>
         <nav class="header-nav">
             <a href="/login.html" class="btn-customer">Customer Login</a>
-            <a href="/admin-login.html" class="btn" style="background:#1a237e; ">Admin Login</a>
+            <a href="/admin-login.html" class="btn-admin">Admin Login</a>
         </nav>
     </header>
 
@@ -686,7 +692,7 @@
     <section class="cta-section">
         <h2 class="cta-title">Ready to Get Protected?</h2>
         <p class="cta-subtitle">Join thousands of drivers who trust Greenstone Insurance.</p>
-        
+       
     </section>
 
     <!-- FOOTER -->

@@ -66,6 +66,26 @@
             gap: 12px;
             align-items: center;
         }
+
+        .btn-step {
+    padding: 9px 20px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-step:hover {
+    background: #1a3a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46,125,50,0.3);
+}
         </style>
 
 
@@ -73,8 +93,8 @@
 <header class="header">
         <div class="header-logo">Greenstone <span>Insurance</span></div>
         <nav class="header-nav">
-            <span id="headerName" style="color:#2e7d32; font-weight:bold; margin-right:15px;"></span>
-            <a href="/login.html" class="btn" onclick="logout()">Logout</a>
+            <span id="headerName" style="color:#000; font-weight:bold; margin-right:15px;"></span>
+            <a href="/login.html" class="btn-primary" onclick="logout()">Logout</a>
         </nav>
     </header>
 
@@ -89,7 +109,7 @@
         <a href="/payment.html">💳 Payments</a>
         <a href="/policy.html">📋 Policies</a>
         <a href="/profile.html">👥 Profile</a>
-        <a href="/login.html" class="btn">Logout</a>
+        <a href="/login.html" class="btn-primary" onclick="logout()">Logout</a>
     </div>
 
     <div class="main-content">

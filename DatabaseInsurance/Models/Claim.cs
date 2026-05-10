@@ -14,6 +14,6 @@ namespace DatabaseInsurance.Models
         public Policy? Policy { get; set; }
         public string Description { get; set; } = string.Empty;
         public string Status { get; set; } = "Pending";
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.UtcNow;
     }
 }

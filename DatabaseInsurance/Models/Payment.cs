@@ -13,7 +13,7 @@ namespace DatabaseInsurance.Models
         public int PolicyId { get; set; }
         public Policy? Policy { get; set; }
         public decimal Amount { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.UtcNow;
         public string Status { get; set; } = "Paid";
     }
 }

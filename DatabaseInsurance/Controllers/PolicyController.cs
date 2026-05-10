@@ -29,7 +29,7 @@ namespace DatabaseInsurance.Controllers
         [HttpPost("buy")]
         public IActionResult BuyPolicy(Policy policy)
         {
-            policy.StartDate = DateTime.Now;
+            policy.StartDate = DateTime.UtcNow;
             policy.EndDate = DateTime.Now.AddYears(1);
             policy.Status = "Active";
 

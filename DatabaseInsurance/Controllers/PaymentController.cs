@@ -29,7 +29,7 @@ namespace DatabaseInsurance.Controllers
         [HttpPost("pay")]
         public IActionResult MakePayment(Payment payment)
         {
-            payment.Date = DateTime.Now;
+            payment.Date = DateTime.UtcNow;
             payment.Status = "Paid";
 
             _context.Payments.Add(payment);

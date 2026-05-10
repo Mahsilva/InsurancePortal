@@ -29,7 +29,7 @@ namespace DatabaseInsurance.Controllers
         [HttpPost("submit")]
         public IActionResult SubmitClaim(Claim claim)
         {
-            claim.Date = DateTime.Now;
+            claim.Date = DateTime.UtcNow;
             claim.Status = "Pending";
 
             _context.Claims.Add(claim);

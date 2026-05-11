@@ -101,4 +101,4 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compr
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\3gh8f7fguq-{0}-kb2lunaufu-kb2lunaufu.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-imh12tx78t-imh12tx78t.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\bin\Debug\net10.0\DatabaseInsurance.staticwebassets.runtime.json
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-xtkacsqtnm-xtkacsqtnm.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-pezgsfh24i-pezgsfh24i.gz

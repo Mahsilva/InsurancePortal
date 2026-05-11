@@ -156,7 +156,7 @@
         <a href="/claim.html">🔧 Submit Claim</a>
         <a href="/payment.html">💳 Payments</a>
         <a href="/profile.html">👤 Profile</a>
-        <a href="/login.html" onclick="logout()" class="btn" style="margin-top:20px;">Logout</a>
+        <a href="/login.html" onclick="logout()" class="btn-primary" style="margin-top:20px;">Logout</a>
     </div>
 
     <div class="main-content">
@@ -271,7 +271,7 @@
     }
 
     async function loadClaims() {
-        const response = await fetch(`${API}/api/claim/user${userId}`);
+        const response = await fetch(`${API}/api/claim/user/${userId}`);
         const claims = await response.json();
         const list = document.getElementById("claimsList");
         list.innerHTML = "";

@@ -3,102 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Insurance Portal</title>
+    <title>Login - Greenstone Insurance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
-
-<header class="header">
-        <div class="header-logo">Greenstone <span>Insurance</span></div>
-        <nav class="header-nav">
-            
-            
-            <a href="/index.html" class="btn-primary" onclick="logout()">Logout</a>
-        </nav>
-    </header>
-
     <style>
-
-        body {
-            background: var(--green-pale);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 10px; /* Espaço para o header fixo */
-        }
-
         :root {
             --green-dark: #1a3a2a;
-            --green-mid: #2e7d32;
-            --green-light: #4caf50;
-            --green-pale: #e8f5e9;
             --gold: #c9a84c;
-            --gold-light: #f0d080;
-            --white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-600: #6c757d;
-            --gray-900: #1a1a1a;
         }
 
-        /* HEADER */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 20px 60px;
+        body {
+            background: #f5f5f5;
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
+            flex-direction: column;
         }
 
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: var(--green-dark);
+            color: #1a3a2a;
             letter-spacing: -0.5px;
         }
+        .header-logo span { color: #c9a84c; }
 
-        .header-logo span {
-            color: var(--gold);
-        }
-
-        .header-nav {
+        .login-wrapper {
+            flex: 1;
             display: flex;
-            gap: 12px;
             align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
         }
-        
-        </style>
 
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
 
-    <div class="login-container">
-        <h2 style="color: #000;">Customer Login</h2>
+        .login-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1a3a2a;
+            margin-bottom: 8px;
+        }
+
+        .login-card p.subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.2s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2e7d32;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1a3a2a, #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #0d1f16, #1a3a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46,125,50,0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .register-link {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #2e7d32;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .register-link a:hover { text-decoration: underline; }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-home:hover { color: #2e7d32; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-logo">Greenstone <span>Insurance</span></div>
+    <nav>
+        <a href="/index.html" class="btn">Back to Home</a>
+    </nav>
+</header>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to manage your insurance policies.</p>
 
         <form id="loginForm">
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
-
-            <button type="submit" class="btn-primary">Login</button>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="ex: john@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn-login">Sign In →</button>
         </form>
 
-        <!-- Botão Create Account -->
-        <a href="register.html" class="btn-createaccount2">Create Account</a>
+        <div class="divider">or</div>
 
-        <p><a href="index.html" class="btn-backtohome">Back to Home</a></p>
+        <div class="register-link">
+            Don't have an account? <a href="/register.html">Create one</a>
+        </div>
+
+        <a href="/index.html" class="back-home">← Back to Home</a>
     </div>
+</div>
 
-    <script>
-    
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value;
@@ -118,8 +206,7 @@
             localStorage.setItem("userId", user.id);
             localStorage.setItem("isAdmin", user.isAdmin);
 
-            // Redirecionar baseado no tipo de usuário
-            if (user.isAdmin) {
+            if (user.isAdmin === true) {
                 window.location.href = "/admin-dashboard.html";
             } else {
                 window.location.href = "/dashboard.html";
@@ -132,10 +219,7 @@
         alert("Error connecting to server.");
     }
 });
-
-
 </script>
 
 </body>
 </html>
-

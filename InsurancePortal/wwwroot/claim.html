@@ -204,7 +204,7 @@
     const API = "https://insuranceportal-production-b15d.up.railway.app";
 
     async function loadPolicies() {
-        const response = await fetch(`${API}/api/policy/${userId}`);
+        const response = await fetch(`${API}/api/claim/user/${userId}`);
         const policies = await response.json();
         const select = document.getElementById("policyId");
 

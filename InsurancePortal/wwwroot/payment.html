@@ -225,6 +225,17 @@
             </div>
         </div>
 
+        <!-- Mensagem de apólice já paga -->
+<div id="alreadyPaid" style="display:none; max-width:400px; margin-bottom:20px;">
+    <div style="background:#fff3e0; border-left:4px solid #e65100; border-radius:8px; padding:16px 20px;">
+        <p style="font-weight:700; color:#e65100; font-size:15px;">🔒 This policy is already paid</p>
+        <p style="font-size:14px; color:#555; margin-top:6px;">
+            Your coverage is active until <strong id="expiryDate"></strong>. 
+            You can renew after the expiry date.
+        </p>
+    </div>
+</div>
+
         <div id="paymentSection" style="display:none;">
             <h2 style="margin-bottom:10px;">Card Details</h2>
 
@@ -302,15 +313,35 @@
         });
     }
 
-    function loadPolicyPrice() {
-        const select = document.getElementById("policyId");
-        const selected = select.options[select.selectedIndex];
+    async function loadPolicyPrice() {
+    const select = document.getElementById("policyId");
+    const selected = select.options[select.selectedIndex];
 
-        if (!selected.value) {
-            document.getElementById("policyInfo").style.display = "none";
-            document.getElementById("paymentSection").style.display = "none";
-            return;
-        }
+    if (!selected.value) {
+        document.getElementById("policyInfo").style.display = "none";
+        document.getElementById("paymentSection").style.display = "none";
+        document.getElementById("alreadyPaid").style.display = "none";
+        return;
+    }
+
+    selectedPrice = parseFloat(selected.getAttribute("data-price"));
+    document.getElementById("planName").textContent = selected.getAttribute("data-plan");
+    document.getElementById("amountDue").textContent = `$${selectedPrice}`;
+    document.getElementById("policyInfo").style.display = "block";
+
+    // Verificar se já foi paga
+    const policyId = selected.value;
+    const checkRes = await fetch(`${API}/api/payment/check/${policyId}`);
+    const checkData = await checkRes.json();
+
+    if (checkData.paid) {
+        document.getElementById("paymentSection").style.display = "none";
+        document.getElementById("alreadyPaid").style.display = "block";
+        document.getElementById("expiryDate").textContent = new Date(checkData.expiry).toLocaleDateString();
+    } else {
+        document.getElementById("paymentSection").style.display = "block";
+        document.getElementById("alreadyPaid").style.display = "none";
+    }
 
         selectedPrice = parseFloat(selected.getAttribute("data-price"));
         document.getElementById("planName").textContent = selected.getAttribute("data-plan");

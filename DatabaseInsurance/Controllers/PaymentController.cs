@@ -36,5 +36,27 @@ namespace DatabaseInsurance.Controllers
             _context.SaveChanges();
             return Ok(payment);
         }
+
+        // Verificar se apólice já foi paga
+[HttpGet("check/{policyId}")]
+public IActionResult CheckPayment(int policyId)
+{
+    var payment = _context.Payments
+        .FirstOrDefault(p => p.PolicyId == policyId);
+    
+    if (payment == null)
+        return Ok(new { paid = false });
+
+    // Verificar se a apólice ainda está vigente
+    var policy = _context.Policies.Find(policyId);
+    if (policy == null)
+        return Ok(new { paid = false });
+
+    // Se a apólice expirou, pode pagar novamente
+    if (policy.EndDate < DateTime.UtcNow)
+        return Ok(new { paid = false });
+
+    return Ok(new { paid = true, expiry = policy.EndDate });
+}
     }
 }

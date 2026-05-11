@@ -220,7 +220,7 @@
                     </div>`).join("");
             }
 
-            const claimRes = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/claim/${userId}`);
+            const claimRes = await fetch(`https://insuranceportal-production-b15d.up.railway.app/api/claim/user/${userId}`);
             const claims = await claimRes.json();
             const pending = claims.filter(c => c.status === "Pending").length;
             document.getElementById("totalClaims").textContent = pending;

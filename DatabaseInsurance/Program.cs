@@ -1,6 +1,8 @@
 using DatabaseInsurance.Data;
 using Microsoft.EntityFrameworkCore;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -34,6 +36,7 @@ using (var scope = app.Services.CreateScope())
 app.UseCors();
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 app.MapControllers();

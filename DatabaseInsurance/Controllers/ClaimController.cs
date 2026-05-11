@@ -4,19 +4,20 @@ using DatabaseInsurance.Models;
 
 namespace DatabaseInsurance.Controllers
 {
- [ApiController]
+    [ApiController]
     [Route("api/[controller]")]
     public class ClaimController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public ClaimController(AppDbContext context)
+        public ClaimController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
-        // Buscar claims de um usuário
-        [HttpGet("{userId}")]
+        [HttpGet("user/{userId}")]
         public IActionResult GetClaims(int userId)
         {
             var claims = _context.Claims
@@ -25,12 +26,36 @@ namespace DatabaseInsurance.Controllers
             return Ok(claims);
         }
 
-        // Submeter um claim
         [HttpPost("submit")]
-        public IActionResult SubmitClaim(Claim claim)
+        public async Task<IActionResult> SubmitClaim([FromForm] int userId,
+                                                      [FromForm] int policyId,
+                                                      [FromForm] string description,
+                                                      IFormFile? photo)
         {
-            claim.Date = DateTime.UtcNow;
-            claim.Status = "Pending";
+            var claim = new Claim
+            {
+                UserId = userId,
+                PolicyId = policyId,
+                Description = description,
+                Date = DateTime.UtcNow,
+                Status = "Pending"
+            };
+
+            if (photo != null && photo.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(_env.WebRootPath ?? "wwwroot", "uploads");
+                Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = $"{Guid.NewGuid()}_{photo.FileName}";
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                claim.PhotoPath = $"/uploads/{fileName}";
+            }
 
             _context.Claims.Add(claim);
             _context.SaveChanges();

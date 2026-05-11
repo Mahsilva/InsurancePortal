@@ -30,7 +30,7 @@ namespace DatabaseInsurance.Controllers
                 .ToList();
             return Ok(users);
         }
-
+ 
         // Ver todas as apólices
         [HttpGet("policies")]
         public IActionResult GetPolicies()
@@ -55,6 +55,7 @@ namespace DatabaseInsurance.Controllers
         }
 
         // Ver todos os claims
+        
         [HttpGet("claims")]
         public IActionResult GetClaims()
         {
@@ -65,6 +66,7 @@ namespace DatabaseInsurance.Controllers
                     c.Id,
                     c.Description,
                     c.Status,
+                    c.PhotoPath,
                     c.Date,
                     CustomerName = c.User!.FullName,
                     CustomerEmail = c.User.Email,

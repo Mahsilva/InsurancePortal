@@ -15,5 +15,6 @@ namespace DatabaseInsurance.Models
         public string Description { get; set; } = string.Empty;
         public string Status { get; set; } = "Pending";
         public DateTime Date { get; set; } = DateTime.UtcNow;
+        public string? PhotoPath { get; set; }
     }
 }

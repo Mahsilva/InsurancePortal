@@ -4,91 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Greenstone Insurance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
     <style>
+        :root {
+            --green-dark: #1a3a2a;
+            --gold: #c9a84c;
+            --navy: #1a237e;
+            --navy-dark: #0d1757;
+        }
 
-            body {
-            background: var(--azulpiscuna);
+        body {
+            background: #f5f5f5;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 10px; /* Espaço para o header fixo */
-        }
-
-
-        :root {
-            --azulpiscuna: #416cf8;
-            --green-dark: #1a3a2a;
-            --green-mid: #2e7d32;
-            --green-light: #4caf50;
-            --green-pale: #e8f5e9;
-            --gold: #c9a84c;
-            --gold-light: #f0d080;
-            --white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-600: #6c757d;
-            --gray-900: #1a1a1a;
-        }
-
-        /* HEADER */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 20px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
+            flex-direction: column;
         }
 
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: var(--green-dark);
+            color: #1a3a2a;
             letter-spacing: -0.5px;
         }
+        .header-logo span { color: #c9a84c; }
 
-        .header-logo span {
-            color: var(--gold);
-        }
-
-        .header-nav {
+        .login-wrapper {
+            flex: 1;
             display: flex;
-            gap: 12px;
             align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
         }
-        
-        </style>
 
-<header class="header">
-        <div class="header-logo">Greenstone <span>Insurance</span></div>
-        <nav class="header-nav">
-            <a href="/index.html" class="btn" style="background:#1a237e; " onclick="logout()">Logout</a>
-        </nav>
-    </header>
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
 
-<div class="login-container">
-    <h2 style="color:#000;">Admin Login</h2>
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e8eaf6;
+            color: #1a237e;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
 
-    <form id="adminLoginForm">
-        <input type="email" id="email" placeholder="Admin Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit" class="btn" style="background:#1a237e; ">Login</button>
-    </form>
+        .login-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1a237e;
+            margin-bottom: 8px;
+        }
 
-    <p><a href="/index.html" class="btn-backtohome">Back to Home</a></p>
+        .login-card p.subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.2s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1a237e;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0d1757, #1a237e);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #060d3a, #0d1757);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26,35,126,0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-home:hover { color: #1a237e; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-logo">Greenstone <span>Insurance</span></div>
+    <nav>
+        <a href="/index.html" class="btn-backtohome">Back to Home</a>
+    </nav>
+</header>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="admin-badge">🔐 Admin Portal</div>
+        <h2>Admin Login</h2>
+        <p class="subtitle">Restricted access — administrators only.</p>
+
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" id="email" placeholder="ex: admin@greenstone.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn-login">Sign In as Admin →</button>
+        </form>
+
+        <div class="divider">or</div>
+
+        <div class="security-note">
+            🛡️ This area is restricted to authorized personnel only
+        </div>
+
+        <a href="/index.html" class="back-home">← Back to Home</a>
+    </div>
 </div>
 
 <script>

@@ -64,7 +64,7 @@ nav a {
     background-color: #c8e6c9;
     color: white !important;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
     display: inline-block;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -82,7 +82,7 @@ nav a {
     background-color: #2e7d32;
     color: white;
     padding: 12px 24px;
-    border-radius: 5px;
+    border-radius: 4px;
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
@@ -94,15 +94,7 @@ nav a {
     cursor: pointer;
 }
 
-.btn-admin {
-    background-color: blue;
-    color: #1a237e !important;
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: inline-block;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
+
 
 .btn-backtohome {
     color:blue;
@@ -122,17 +114,13 @@ nav a {
     cursor: pointer;
 }
 
-.btn-admin:hover {
-    background-color: white !important;
-    transform: scale(1.05);
-    cursor: pointer;
-}
+
 
 .btn-secondary {
-    background-color: blue;
+    background-color: #007ab3;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
     display: inline-block;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -241,7 +229,6 @@ footer {
 .sidebar {
     width: 200px;
     min-height: calc(100vh - 70px);
-    background-color: #2e7d32;
     color: white;
     padding: 20px;
     position: sticky;

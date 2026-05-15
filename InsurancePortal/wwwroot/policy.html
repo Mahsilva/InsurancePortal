@@ -13,6 +13,18 @@
             --gold: #c9a84c;
         }
 
+                .sidebar {
+            background-color: #2e7d32 !important;
+        }
+
+        .sidebar a {
+            color: white !important;
+        }
+
+        .sidebar h3 {
+            color: white !important;
+        }
+
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
@@ -353,8 +365,13 @@
 </div>
 
 <script>
+
     const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("userFullName");
+    const isAdmin = localStorage.getItem("isAdmin");
+
     if (!userId) window.location.href = "/login.html";
+    if (isAdmin === "true") window.location.href = "/admin-dashboard.html";
 
     let calculatedPlans = [];
 
@@ -444,10 +461,49 @@
         else if (kmPerYear >= 20000) basePrice += 40;
 
         calculatedPlans = [
-            { name: "Basic", price: basePrice, features: ["Third party coverage", "Roadside assistance", "24/7 support"], featured: false },
-            { name: "Standard", price: Math.round(basePrice * 1.5), features: ["Third party + fire & theft", "Roadside assistance", "Windscreen cover", "24/7 support"], featured: true },
-            { name: "Premium", price: Math.round(basePrice * 2.2), features: ["Full comprehensive cover", "Hire car after accident", "No excess on claims", "24/7 priority support"], featured: false }
-        ];
+    {
+        name: "Basic",
+        price: basePrice,
+        features: [
+            "Third party liability coverage",
+            "Roadside assistance 24/7",
+            "Emergency towing (up to 50km)",
+            "Personal accident cover",
+            "Online claims submission",
+            "Customer support 24/7"
+        ],
+        featured: false
+    },
+    {
+        name: "Standard",
+        price: Math.round(basePrice * 1.5),
+        features: [
+            "All Basic benefits included",
+            "Fire & theft protection",
+            "Windscreen & glass cover",
+            "Flood & storm damage",
+            "Hire car after accident (up to 14 days)",
+            "Priority claims processing",
+            "No excess on windscreen claims"
+        ],
+        featured: true
+    },
+    {
+        name: "Premium",
+        price: Math.round(basePrice * 2.2),
+        features: [
+            "All Standard benefits included",
+            "Full comprehensive cover",
+            "New car replacement (up to 2 years old)",
+            "Unlimited hire car after accident",
+            "No excess on all claims",
+            "Agreed value payout",
+            "VIP 24/7 priority support",
+            "Free annual vehicle inspection"
+        ],
+        featured: false
+    }
+];
 
         const container = document.getElementById("plansContainer");
         container.innerHTML = "";
@@ -536,17 +592,57 @@
                 return;
             }
 
+            const benefits = {
+    "Basic": [
+        "Third party liability coverage",
+        "Roadside assistance 24/7",
+        "Emergency towing (up to 50km)",
+        "Personal accident cover",
+        "Online claims submission",
+        "Customer support 24/7"
+    ],
+    "Standard": [
+        "All Basic benefits included",
+        "Fire & theft protection",
+        "Windscreen & glass cover",
+        "Flood & storm damage",
+        "Hire car after accident (up to 14 days)",
+        "Priority claims processing",
+        "No excess on windscreen claims"
+    ],
+    "Premium": [
+        "All Standard benefits included",
+        "Full comprehensive cover",
+        "New car replacement (up to 2 years old)",
+        "Unlimited hire car after accident",
+        "No excess on all claims",
+        "Agreed value payout",
+        "VIP 24/7 priority support",
+        "Free annual vehicle inspection"
+    ]
+};
+
             policies.forEach(p => {
-                list.innerHTML += `
-                    <div class="policy-card">
-                        <h3>${p.planType} Plan — ${p.carModel} (${p.carYear})</h3>
-                        <p>🚗 Plate: ${p.carPlate}</p>
-                        <p>📋 Policy #: ${p.policyNumber}</p>
-                        <p>💰 Price: $${p.price}/year</p>
-                        <p>📅 Expires: ${new Date(p.endDate).toLocaleDateString()}</p>
-                        <span class="policy-badge">${p.status}</span>
-                    </div>`;
-            });
+    const planBenefits = benefits[p.planType] || [];
+    list.innerHTML += `
+        <div class="policy-card">
+            <h3>${p.planType} Plan — ${p.carModel} (${p.carYear})</h3>
+            <p>🚗 Plate: ${p.carPlate}</p>
+            <p>📋 Policy #: ${p.policyNumber}</p>
+            <p>💰 Price: $${p.price}/year</p>
+            <p>📅 Expires: ${new Date(p.endDate).toLocaleDateString()}</p>
+            <span class="policy-badge">${p.status}</span>
+            <div style="margin-top:14px; border-top:1px solid #e8f5e9; padding-top:12px;">
+                <p style="font-weight:600; font-size:13px; color:#1a3a2a; margin-bottom:8px;">✅ Your Plan Benefits:</p>
+                <ul style="list-style:none; padding:0; margin:0;">
+                    ${planBenefits.map(b => `
+                        <li style="font-size:13px; color:#555; padding:4px 0; border-bottom:1px solid #f5f5f5; display:flex; align-items:center; gap:6px;">
+                            <span style="color:#2e7d32; font-weight:700;">✓</span> ${b}
+                        </li>`).join("")}
+                </ul>
+            </div>
+        </div>`;
+});
         } catch (error) {
             console.error(error);
         }

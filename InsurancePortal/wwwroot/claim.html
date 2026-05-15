@@ -17,6 +17,19 @@
             color: #1a3a2a;
             letter-spacing: -0.5px;
         }
+
+        .sidebar {
+            background-color: #2e7d32 !important;
+        }
+
+        .sidebar a {
+            color: white !important;
+        }
+
+        .sidebar h3 {
+            color: white !important;
+        }
+
         .header-logo span { color: #c9a84c; }
 
         .claim-form {
@@ -198,8 +211,13 @@
 </div>
 
 <script>
+
     const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("userFullName");
+    const isAdmin = localStorage.getItem("isAdmin");
+
     if (!userId) window.location.href = "/login.html";
+    if (isAdmin === "true") window.location.href = "/admin-dashboard.html";
 
     const API = "http://localhost:5077";
 

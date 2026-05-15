@@ -80,6 +80,14 @@
             margin-bottom: 30px;
         }
 
+        .admin-sidebar a {
+    color: white !important;
+}
+
+.admin-sidebar h3 {
+    color: white !important;
+}
+
         .admin-header h1 { margin-bottom: 5px; }
         .admin-header p { opacity: 0.9; }
         .stats { display: flex; gap: 20px; margin-bottom: 30px; }
@@ -130,14 +138,14 @@
     </header>
 
 <div class="dashboard">
-    <div class="sidebar admin-sidebar">
+    <div class="sidebar sidebar admin-sidebar">
         <h3>Admin Menu</h3>
         <a href="/admin-dashboard.html">🏠 Dashboard</a>
-        <a href="/admin-users.html">👥 Users</a>
+        <a href="/admin-users.html">👥 Customers</a>
         <a href="/admin-policies.html">📋 Policies</a>
         <a href="/admin-claims.html">🔧 Claims</a>
         <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+        
     </div>
 
     <div class="main-content">
@@ -207,9 +215,10 @@
 
 <script>
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!isAdmin || isAdmin === "false") {
-        window.location.href = "/login.html";
-    }
+const userId = localStorage.getItem("userId");
+if (!userId || isAdmin !== "true") {
+    window.location.href = "/login.html";
+}
 
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 

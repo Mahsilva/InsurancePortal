@@ -23,6 +23,19 @@
         .welcome-banner h1 { margin-bottom: 5px; }
         .welcome-banner p { opacity: 0.9; }
 
+                .sidebar {
+            background-color: #2e7d32 !important;
+        }
+
+        .sidebar a {
+            color: white !important;
+        }
+
+        .sidebar h3 {
+            color: white !important;
+        }
+        
+
         .stats {
             display: flex;
             gap: 20px;
@@ -192,10 +205,13 @@
 </div>
 
 <script>
+
     const userId = localStorage.getItem("userId");
     const userName = localStorage.getItem("userFullName");
+    const isAdmin = localStorage.getItem("isAdmin");
 
     if (!userId) window.location.href = "/login.html";
+    if (isAdmin === "true") window.location.href = "/admin-dashboard.html";
 
     document.getElementById("userName").textContent = userName || "Customer";
     document.getElementById("headerName").textContent = userName || "";

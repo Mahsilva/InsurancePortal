@@ -49,6 +49,13 @@
         }
 
         
+        .admin-sidebar a {
+    color: white !important;
+}
+
+.admin-sidebar h3 {
+    color: white !important;
+}
 
 
             
@@ -100,21 +107,28 @@
     <div class="sidebar admin-sidebar">
         <h3>Admin Menu</h3>
         <a href="/admin-dashboard.html">🏠 Dashboard</a>
-        <a href="/admin-users.html">👥 Users</a>
         <a href="/admin-policies.html">📋 Policies</a>
         <a href="/admin-claims.html">🔧 Claims</a>
         <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+        
     </div>
 
     <div class="main-content">
         <div class="admin-header">
-            <h1>👥 Registered Users</h1>
+            <h1>👥 Registered Customers</h1>
             <p>All customers registered in the system.</p>
         </div>
 
+        <!-- Search -->
+<div style="margin-bottom:16px; display:flex; gap:12px; align-items:center;">
+    <input type="text" id="searchUser" placeholder="🔍 Search by name or email..." 
+        oninput="filterUsers()"
+        style="padding:10px 14px; border:1px solid #ddd; border-radius:6px; font-size:14px; width:300px;">
+    <button onclick="clearSearch()" style="padding:10px 16px; background:#f0f0f0; border:1px solid #ddd; border-radius:6px; cursor:pointer; font-size:14px;">Clear</button>
+</div>
+
         <div class="section">
-            <h2>Users List</h2>
+            <h2>Customers List</h2>
             <table>
                 <thead>
                     <tr>
@@ -133,34 +147,52 @@
 
 <script>
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!isAdmin || isAdmin === "false") {
+    const userId = localStorage.getItem("userId");
+    if (!userId || isAdmin !== "true") {
         window.location.href = "/login.html";
     }
 
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 
     const API = "https://insuranceportal-production-b15d.up.railway.app";
+    let allUsers = [];
 
     async function loadUsers() {
         try {
             const response = await fetch(`${API}/api/admin/users`);
-            const users = await response.json();
-            const table = document.getElementById("usersTable");
-
-            if (users.length === 0) {
-                table.innerHTML = `<tr><td colspan="3" class="empty-msg">No users registered yet.</td></tr>`;
-                return;
-            }
-
-            table.innerHTML = users.map(u => `
-                <tr>
-                    <td>#${u.id}</td>
-                    <td>${u.fullName}</td>
-                    <td>${u.email}</td>
-                </tr>`).join("");
+            allUsers = await response.json();
+            renderUsers(allUsers);
         } catch (error) {
             console.error("Error loading users:", error);
         }
+    }
+
+    function filterUsers() {
+        const search = document.getElementById("searchUser").value.toLowerCase().trim();
+        const filtered = allUsers.filter(u =>
+            u.email.toLowerCase().includes(search) ||
+            u.fullName.toLowerCase().includes(search)
+        );
+        renderUsers(filtered);
+    }
+
+    function clearSearch() {
+        document.getElementById("searchUser").value = "";
+        renderUsers(allUsers);
+    }
+
+    function renderUsers(users) {
+        const table = document.getElementById("usersTable");
+        if (users.length === 0) {
+            table.innerHTML = `<tr><td colspan="3" class="empty-msg">No users found.</td></tr>`;
+            return;
+        }
+        table.innerHTML = users.map(u => `
+            <tr>
+                <td>#${u.id}</td>
+                <td>${u.fullName}</td>
+                <td>${u.email}</td>
+            </tr>`).join("");
     }
 
     function logout() {

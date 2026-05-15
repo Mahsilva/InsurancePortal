@@ -43,6 +43,14 @@
             
         }
 
+        .admin-sidebar a {
+    color: white !important;
+}
+
+.admin-sidebar h3 {
+    color: white !important;
+}
+
 
             
         .header-logo {
@@ -116,10 +124,10 @@
         <h3>Admin Menu</h3>
         <a href="/admin-dashboard.html">🏠 Dashboard</a>
         <a href="/admin-users.html">👥 Users</a>
-        <a href="/admin-policies.html">📋 Policies</a>
+        
         <a href="/admin-claims.html">🔧 Claims</a>
         <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+        
     </div>
 
     <div class="main-content">
@@ -155,9 +163,10 @@
 
 <script>
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!isAdmin || isAdmin === "false") {
-        window.location.href = "/login.html";
-    }
+const userId = localStorage.getItem("userId");
+if (!userId || isAdmin !== "true") {
+    window.location.href = "/login.html";
+}
 
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 

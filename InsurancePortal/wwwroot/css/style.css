@@ -229,7 +229,7 @@ footer {
 .sidebar {
     width: 200px;
     min-height: calc(100vh - 70px);
-    color: white;
+    color: #1b4d20;
     padding: 20px;
     position: sticky;
     top: 70px;
@@ -245,7 +245,7 @@ footer {
 
 .sidebar a {
     display: block;
-    color: white;
+    color: #1b4d20;
     text-decoration: none;
     margin: 8px 0;
     padding: 8px 10px;

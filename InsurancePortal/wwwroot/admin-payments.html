@@ -12,6 +12,14 @@
             --green-dark: #1a3a2a;
         }
 
+        .admin-sidebar a {
+    color: white !important;
+}
+
+.admin-sidebar h3 {
+    color: white !important;
+}
+
         .header-logo {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
@@ -154,8 +162,8 @@
         <a href="/admin-users.html">👥 Users</a>
         <a href="/admin-policies.html">📋 Policies</a>
         <a href="/admin-claims.html">🔧 Claims</a>
-        <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" onclick="logout()" class="btn-admin" style="margin-top:20px;">Logout</a>
+        
+        
     </div>
 
     <div class="main-content">
@@ -224,9 +232,10 @@
 
 <script>
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!isAdmin || isAdmin === "false") {
-        window.location.href = "/login.html";
-    }
+const userId = localStorage.getItem("userId");
+if (!userId || isAdmin !== "true") {
+    window.location.href = "/login.html";
+}
 
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 

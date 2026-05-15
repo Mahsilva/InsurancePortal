@@ -63,6 +63,14 @@
             align-items: center;
         }
 
+        .admin-sidebar a {
+    color: white !important;
+}
+
+.admin-sidebar h3 {
+    color: white !important;
+}
+
 
             body {
             font-family: 'DM Sans', sans-serif;
@@ -119,9 +127,8 @@
         <a href="/admin-dashboard.html">🏠 Dashboard</a>
         <a href="/admin-users.html">👥 Users</a>
         <a href="/admin-policies.html">📋 Policies</a>
-        <a href="/admin-claims.html">🔧 Claims</a>
         <a href="/admin-payments.html">💳 Payments</a>
-        <a href="/index.html" class="btn-admin" onclick="logout()">Logout</a>
+        
     </div>
 
     <div class="main-content">
@@ -129,6 +136,14 @@
             <h1>🔧 All Claims</h1>
             <p>Review and manage customer claims.</p>
         </div>
+
+        <!-- Search -->
+<div style="margin-bottom:16px; display:flex; gap:12px; align-items:center;">
+    <input type="text" id="searchPolicy" placeholder="🔍 Search by Policy #..." 
+        oninput="filterClaims()"
+        style="padding:10px 14px; border:1px solid #ddd; border-radius:6px; font-size:14px; width:300px;">
+    <button onclick="clearSearch()" style="padding:10px 16px; background:#f0f0f0; border:1px solid #ddd; border-radius:6px; cursor:pointer; font-size:14px;">Clear</button>
+</div>
 
         <div class="section">
             <h2>Claims List</h2>
@@ -156,47 +171,65 @@
 
 <script>
     const isAdmin = localStorage.getItem("isAdmin");
-    if (!isAdmin || isAdmin === "false") {
+    const userId = localStorage.getItem("userId");
+    if (!userId || isAdmin !== "true") {
         window.location.href = "/login.html";
     }
 
     document.getElementById("headerName").textContent = localStorage.getItem("userFullName") || "Admin";
 
     const API = "https://insuranceportal-production-b15d.up.railway.app";
+    let allClaims = [];
 
     async function loadClaims() {
         try {
             const response = await fetch(`${API}/api/admin/claims`);
-            const claims = await response.json();
-            const table = document.getElementById("claimsTable");
-
-            if (claims.length === 0) {
-                table.innerHTML = `<tr><td colspan="8" class="empty-msg">No claims found.</td></tr>`;
-                return;
-            }
-
-            table.innerHTML = claims.map(c => `
-                <tr id="claim-${c.id}">
-                    <td>#${c.id}</td>
-                    <td>${c.customerName}</td>
-                    <td>${c.customerEmail}</td>
-                    <td>${c.policyNumber}</td>
-                    <td>${c.description}</td>
-                    <td>${new Date(c.date).toLocaleDateString()}</td>
-                    <td><span class="badge badge-${c.status.toLowerCase()}">${c.status}</span></td>
-                    <td>
-                        ${c.photoPath ? `<a href="https://insuranceportal-production-b15d.up.railway.app${c.photoPath}" target="_blank" class="btn-approve">📷 View</a>` : "-"}
-                     </td>
-                    <td>   
-                        ${c.status === "Pending" ? `
-                        <button class="btn-approve" onclick="updateClaim(${c.id}, 'Approved')">✓ Approve</button>
-                        <button class="btn-reject" onclick="updateClaim(${c.id}, 'Rejected')">✗ Reject</button>
-                        ` : "-"}
-                    </td>
-                </tr>`).join("");
+            allClaims = await response.json();
+            renderClaims(allClaims);
         } catch (error) {
             console.error("Error loading claims:", error);
         }
+    }
+
+    function filterClaims() {
+        const search = document.getElementById("searchPolicy").value.toLowerCase().trim();
+        const filtered = allClaims.filter(c =>
+            c.policyNumber.toLowerCase().includes(search) ||
+            c.customerName.toLowerCase().includes(search)
+        );
+        renderClaims(filtered);
+    }
+
+    function clearSearch() {
+        document.getElementById("searchPolicy").value = "";
+        renderClaims(allClaims);
+    }
+
+    function renderClaims(claims) {
+        const table = document.getElementById("claimsTable");
+        if (claims.length === 0) {
+            table.innerHTML = `<tr><td colspan="9" class="empty-msg">No claims found.</td></tr>`;
+            return;
+        }
+        table.innerHTML = claims.map(c => `
+            <tr id="claim-${c.id}">
+                <td>#${c.id}</td>
+                <td>${c.customerName}</td>
+                <td>${c.customerEmail}</td>
+                <td>${c.policyNumber}</td>
+                <td>${c.description}</td>
+                <td>${new Date(c.date).toLocaleDateString()}</td>
+                <td><span class="badge badge-${c.status.toLowerCase()}">${c.status}</span></td>
+                <td>
+                    ${c.photoPath ? `<a href="${API}${c.photoPath}" target="_blank" class="btn-approve">📷 View</a>` : "-"}
+                </td>
+                <td>
+                    ${c.status === "Pending" ? `
+                    <button class="btn-approve" onclick="updateClaim(${c.id}, 'Approved')">✓ Approve</button>
+                    <button class="btn-reject" onclick="updateClaim(${c.id}, 'Rejected')">✗ Reject</button>
+                    ` : "-"}
+                </td>
+            </tr>`).join("");
     }
 
     async function updateClaim(id, status) {

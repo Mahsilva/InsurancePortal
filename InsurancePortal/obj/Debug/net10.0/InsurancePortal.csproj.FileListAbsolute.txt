@@ -77,9 +77,7 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\rjsmc
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\scopedcss\bundle\InsurancePortal.styles.css
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\nfn4l844xx-{0}-o8o7p39xf5-o8o7p39xf5.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\9dm9hvnlsl-{0}-61n19gt1b8-61n19gt1b8.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\ziteg2w5nn-{0}-ydgy8xsy9x-ydgy8xsy9x.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\tjuu3qh89n-{0}-st9stvzy77-st9stvzy77.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\xy7gv6rm94-{0}-xqis7bg26u-xqis7bg26u.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\q6to0i03vv-{0}-kbv1j7z919-kbv1j7z919.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\staticwebassets.build.json.cache
@@ -99,6 +97,8 @@ C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compr
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\kp6ahxx230-{0}-zxs62w96t4-zxs62w96t4.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\6wfr1bmi2q-{0}-hkqjyng6qu-hkqjyng6qu.gz
 C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\3gh8f7fguq-{0}-6gi7q5q6v2-6gi7q5q6v2.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-ljzx55ky7o-ljzx55ky7o.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-989lq4p3zg-989lq4p3zg.gz
-C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\8f5mc97hay-{0}-v19zlu1p8h-v19zlu1p8h.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\pkp883jv0m-{0}-jcmu4hqcck-jcmu4hqcck.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\k3l49kwmox-{0}-zgtpt7w3hl-zgtpt7w3hl.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\ziteg2w5nn-{0}-7g0xufgnp7-7g0xufgnp7.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\8f5mc97hay-{0}-eujey9zlwo-eujey9zlwo.gz
+C:\Users\Marcelo\Desktop\InsurancePortal\InsurancePortal\obj\Debug\net10.0\compressed\xy7gv6rm94-{0}-csnwseq08a-csnwseq08a.gz
